@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>My Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050506">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -2000,7 +2006,7 @@ const Sync = {
     }
     const apiUrl = localStorage.getItem('dash_api_url') || 'https://josh-dashboard-six.vercel.app';
     try {
-      syncClient = new (await import('/sync-client.js')).initSync(apiUrl, apiKey);
+      syncClient = new (await import('./sync-client.js')).initSync(apiUrl, apiKey);
       await Sync.pull();
       setInterval(() => Sync.pull(), 30000); // pull every 30s
     } catch (err) {
