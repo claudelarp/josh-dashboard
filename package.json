@@ -1,0 +1,15 @@
+{
+  "name": "josh-dashboard",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Frontend + API ready for Vercel'",
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

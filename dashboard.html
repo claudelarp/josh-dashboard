@@ -323,8 +323,8 @@ input,select{font-family:inherit}
 /* ===EXT CSS=== */
 
 /* ============ SETTINGS MODAL ============ */
-#settingsModal{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow-y:auto}
-#settingsModal.is-open{display:flex}
+#settingsModal, #syncModal{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow-y:auto}
+#settingsModal.is-open, #syncModal.is-open{display:flex}
 .modal-scrim{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)}
 .modal-card{
   position:relative;width:100%;max-width:640px;background:#111113;border:1px solid rgba(255,255,255,0.08);
@@ -390,6 +390,29 @@ input,select{font-family:inherit}
       <button class="modal-close" data-action="close-settings">×</button>
     </div>
     <div id="settingsBody"></div>
+  </div>
+</div>
+
+<div id="syncModal">
+  <div class="modal-scrim" data-action="close-sync"></div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">Cloud Sync</div>
+    </div>
+    <div id="syncBody" style="padding: 20px;">
+      <p style="color: var(--text-secondary); margin-bottom: 14px;">Connect your dashboard to the cloud so your tasks sync across devices.</p>
+      <div style="margin-bottom: 14px;">
+        <label style="display: block; font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;">API Key</label>
+        <input id="apiKeyInput" type="text" class="set-input" placeholder="sk_..." style="width: 100%;">
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button id="syncLoginBtn" class="btn-primary" style="flex: 1;">Connect</button>
+        <button id="syncSkipBtn" class="btn-glass" style="flex: 1;" data-action="close-sync">Skip for now</button>
+      </div>
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--hairline);">
+        <p style="font-size: 11px; color: var(--text-tertiary); line-height: 1.6;">Don't have an API key? <a href="javascript:void(0)" style="color: #3987e5;" id="showHelpSync">Get one here</a> (takes 2 min).</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1966,6 +1989,56 @@ const Clock = (function(){
   };
 })();
 
+/* ================= Sync ================= */
+let syncClient = null;
+const Sync = {
+  async init() {
+    const apiKey = localStorage.getItem('dash_api_key');
+    if (!apiKey) {
+      document.getElementById('syncModal').classList.add('is-open');
+      return;
+    }
+    const apiUrl = localStorage.getItem('dash_api_url') || 'https://josh-dashboard.vercel.app';
+    try {
+      syncClient = new (await import('/api/sync-client.js')).initSync(apiUrl, apiKey);
+      await Sync.pull();
+      setInterval(() => Sync.pull(), 30000); // pull every 30s
+    } catch (err) {
+      console.error('Sync init failed:', err);
+    }
+  },
+  async pull() {
+    if (!syncClient || !syncClient.online) return;
+    try {
+      const data = await syncClient.pull(U.activeDate());
+      if (data && data.settings) {
+        const cfg = Config.get();
+        if (data.settings.v && data.settings.v > cfg.v) {
+          localStorage.setItem('dash_settings_v1', JSON.stringify(data.settings));
+          Config.load();
+          Config.applyTheme();
+          U.banner('Settings synced from cloud', 3000);
+        }
+      }
+    } catch (err) {
+      console.warn('Pull failed:', err.message);
+    }
+  },
+  async push() {
+    if (!syncClient || !syncClient.online || syncClient.syncing) return;
+    try {
+      const active = U.activeDate();
+      const tasks = Data.goals(active);
+      const backlog = Data.backlog();
+      const settings = Config.get();
+      const history = Data.history()[active];
+      await syncClient.push(active, tasks, backlog, settings, history);
+    } catch (err) {
+      console.warn('Push failed:', err.message);
+    }
+  }
+};
+
 /* ================= boot ================= */
 function boot(){
   Config.load();
@@ -1975,8 +2048,38 @@ function boot(){
   Data.seedMerge();
   Render.all();
   Clock.start();
+  Sync.init().catch(console.error);
 }
 boot();
+
+// Sync on data changes
+document.addEventListener('goals-changed', () => {
+  if (syncClient) Sync.push().catch(console.error);
+});
+
+// Wire sync modal
+document.getElementById('syncLoginBtn').addEventListener('click', async () => {
+  const apiKey = document.getElementById('apiKeyInput').value.trim();
+  if (!apiKey) {
+    U.banner('API key required', 3000);
+    return;
+  }
+  localStorage.setItem('dash_api_key', apiKey);
+  localStorage.setItem('dash_api_url', 'https://josh-dashboard.vercel.app');
+  document.getElementById('syncModal').classList.remove('is-open');
+  await Sync.init();
+  U.banner('Cloud sync connected!', 3000);
+});
+
+document.getElementById('showHelpSync').addEventListener('click', () => {
+  alert('To get an API key:\n1. Visit: https://josh-dashboard.vercel.app/setup\n2. Click "Generate Key"\n3. Paste the key here\n\nYour tasks will now sync across all devices!');
+});
+
+document.addEventListener('click', e => {
+  if (e.target.dataset.action === 'close-sync') {
+    document.getElementById('syncModal').classList.remove('is-open');
+  }
+});
 })();
 </script>
 </body>
