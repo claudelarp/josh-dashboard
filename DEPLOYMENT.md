@@ -101,21 +101,50 @@ alter table public.history enable row level security;
 
 ---
 
-## Step 2: Deploy to Vercel
+## Step 1.5: Push code to GitHub (if needed)
 
-1. **Sign up for Vercel** at https://vercel.com (connect your GitHub)
-2. **Push your code to GitHub**:
+**Already done?** Skip this section. Your code is at https://github.com/claudelarp/josh-dashboard
+
+**Not pushed yet?** Here's how:
+
+1. **Set up Git credentials** (one-time):
+   ```bash
+   git config --global credential.helper osxkeychain
+   ```
+   (On Windows, use: `git config --global credential.helper wincred`)
+
+2. **Create a GitHub Personal Access Token**:
+   - Go to: https://github.com/settings/tokens/new
+   - Name: `josh-dashboard`
+   - Scopes: check only `repo` (all options under it)
+   - Click **Generate token** and copy it
+
+3. **Push your code**:
    ```bash
    cd "/Users/joshuanieman/Desktop/Josh Brain"
-   git add .
-   git commit -m "Add cloud sync backend"
-   git push origin main
+   git push -u origin main
+   # When prompted:
+   #   Username: your-github-username
+   #   Password: (paste your Personal Access Token)
    ```
+   Git saves your credentials for next time.
+
+**Error: "Repository not found"?**
+- Make sure your token is for the correct GitHub account
+- Verify the repo exists at: https://github.com/YOUR_USERNAME/josh-dashboard
+
+---
+
+## Step 2: Deploy to Vercel
+
+1. **Sign up for Vercel** at https://vercel.com (connect your GitHub account `claudelarp`)
+
+2. **Code is ready at GitHub**: https://github.com/claudelarp/josh-dashboard
 
 3. **Import into Vercel**:
    - Go to https://vercel.com/new
    - Click "Import Git Repository"
-   - Paste: `https://github.com/YOUR_USERNAME/josh-dashboard.git`
+   - Select `josh-dashboard` from the list (it should appear automatically)
    - Click "Import"
 
 4. **Add environment variables** in Vercel:
