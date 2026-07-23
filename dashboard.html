@@ -1,87 +1,1983 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mission Control — 2026-07-23</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Dashboard</title>
 <style>
-:root {
-  color-scheme: light;
-  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
-  --hairline:#e1e0d9; --ring:rgba(11,11,11,.10);
-  --overdue:#d03b3b; --warning:#fab219;
+/* ============ TOKENS ============ */
+:root{
+  --bg:#050506;
+  --text-primary:#FAFAFA; --text-secondary:#B8B6B0; --text-tertiary:#76746E;
+  --success:#6BE3A4; --warning:#F2C063; --danger:#FF6B6B;
+  --card-bg:rgba(255,255,255,0.04); --hairline:rgba(255,255,255,0.06);
+  --font-sans:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --base-size:15px;
+  --wash-a:rgba(224,118,88,0.16); --wash-b:rgba(180,180,200,0.06);
 }
-@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) {
-  color-scheme: dark;
-  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-  --hairline:#2c2c2a; --ring:rgba(255,255,255,.10);
-} }
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
-  --hairline:#2c2c2a; --ring:rgba(255,255,255,.10);
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:var(--base-size)}
+body{
+  background:var(--bg); color:var(--text-primary);
+  font-family:var(--font-sans); min-height:100vh;
+  max-width:1100px; margin:0 auto;
+  padding:calc(24px + env(safe-area-inset-top)) 20px 60px;
+  position:relative; font-size:var(--base-size);
+  overflow-x:hidden;
 }
-* { box-sizing:border-box; margin:0 }
-body { background:var(--page); color:var(--ink);
-  font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; padding:24px; }
-header { max-width:1200px; margin:0 auto 20px }
-header h1 { font-size:22px; font-weight:650 }
-header p { color:var(--ink-2); margin-top:2px }
-.focus { max-width:1200px; margin:0 auto 24px; background:var(--surface);
-  border:1px solid var(--ring); border-radius:10px; padding:14px 18px }
-.focus h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em;
-  color:var(--muted); margin-bottom:8px }
-.focus ul { list-style:none } .focus li { padding:4px 0; display:flex; gap:8px; align-items:baseline; flex-wrap:wrap }
-.grid { max-width:1200px; margin:0 auto; display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px }
-.col { background:var(--surface); border:1px solid var(--ring); border-radius:10px; padding:14px 16px }
-.col h2 { font-size:15px; font-weight:650; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
-  padding-bottom:10px; border-bottom:1px solid var(--hairline); margin-bottom:10px }
-.chip { width:10px; height:10px; border-radius:3px; background:var(--accent); flex:none }
-@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) .chip { background:var(--accent-dark) } }
-:root[data-theme="dark"] .chip { background:var(--accent-dark) }
-.count { margin-left:auto; font-size:12px; font-weight:400; color:var(--muted);
-  font-variant-numeric:tabular-nums }
-.col ul { list-style:none }
-.col li { padding:6px 0; border-bottom:1px solid var(--hairline); display:flex; gap:6px;
-  align-items:baseline; flex-wrap:wrap }
-.col li:last-child { border-bottom:none }
-.task-text { color:var(--ink) }
-.empty { color:var(--muted); font-style:italic }
-.pill { font-size:11px; font-weight:600; border-radius:999px; padding:1px 8px;
-  white-space:nowrap; font-variant-numeric:tabular-nums }
-.pill-overdue { background:var(--overdue); color:#fff }
-.pill-today { background:var(--warning); color:#0b0b0b }
-.pill-soon { border:1px solid var(--hairline); color:var(--ink-2) }
-.pill-later { color:var(--muted) }
-footer { max-width:1200px; margin:20px auto 0; color:var(--muted); font-size:12px }
-</style></head><body>
-<header><h1>Mission Control</h1><p>Thursday, July 23 · 1 open tasks</p></header>
-<div class="focus"><h2>Today's focus</h2><ul><li class="empty">Nothing overdue or due today — pick from the columns below.</li></ul></div>
-<div class="grid">
-      <section class="col" style="--accent:#2a78d6;--accent-dark:#3987e5">
-        <h2><span class="chip" aria-hidden="true"></span>Business
-            <span class="count">1 open · 0 done</span></h2>
-        <ul><li><span class="task-text">Set up drop tracking when you want it: fill ops/drops/inputs/drop-brief-current.md</span></li></ul>
-      </section>
-      <section class="col" style="--accent:#eb6834;--accent-dark:#d95926">
-        <h2><span class="chip" aria-hidden="true"></span>Fitness & Health
-            <span class="count">0 open · 0 done</span></h2>
-        <ul><li class="empty">nothing open</li></ul>
-      </section>
-      <section class="col" style="--accent:#1baf7a;--accent-dark:#199e70">
-        <h2><span class="chip" aria-hidden="true"></span>Marketing
-            <span class="count">0 open · 0 done</span></h2>
-        <ul><li class="empty">nothing open</li></ul>
-      </section>
-      <section class="col" style="--accent:#eda100;--accent-dark:#c98500">
-        <h2><span class="chip" aria-hidden="true"></span>School
-            <span class="count">0 open · 0 done</span></h2>
-        <ul><li class="empty">nothing open</li></ul>
-      </section>
-      <section class="col" style="--accent:#e87ba4;--accent-dark:#d55181">
-        <h2><span class="chip" aria-hidden="true"></span>Self-development
-            <span class="count">0 open · 0 done</span></h2>
-        <ul><li class="empty">nothing open</li></ul>
-      </section></div>
-<footer>Generated 2026-07-23 07:14 · refresh: ask Claude “refresh the dashboard” or run
-<code>python3 scripts/build-dashboard.py</code> · tasks live in <code>projects/&lt;domain&gt;/tasks.md</code></footer>
-</body></html>
+body::before{
+  content:''; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(560px 420px at 82% 14%, var(--wash-a), transparent 70%),
+    radial-gradient(640px 520px at 18% 90%, var(--wash-b), transparent 70%);
+  filter:blur(40px); animation:washDrift 36s ease-in-out infinite alternate;
+}
+@keyframes washDrift{from{transform:translate(0,0) scale(1)}to{transform:translate(-30px,24px) scale(1.06)}}
+body::after{
+  content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='3'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='white' fill-opacity='0.014'/%3E%3C/svg%3E");
+}
+button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font-family:inherit}
+::selection{background:rgba(255,255,255,0.18)}
+
+/* ============ TITLE ============ */
+.dash-title{
+  font-size:28px; font-weight:700; letter-spacing:-0.025em; margin-bottom:14px;
+  background:linear-gradient(180deg,#FFFFFF 0%,#C7C4BC 120%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  width:fit-content;
+}
+#gearBtn{
+  position:absolute; top:calc(26px + env(safe-area-inset-top)); right:20px;
+  font-size:18px; opacity:0.55; transition:opacity .2s, transform .3s;
+}
+#gearBtn:hover{opacity:1; transform:rotate(45deg)}
+#banner{margin-bottom:12px}
+.banner-msg{
+  background:rgba(255,107,107,0.10); border:1px solid rgba(255,107,107,0.30);
+  color:var(--text-primary); font-size:12px; padding:9px 13px; border-radius:10px; margin-bottom:8px;
+}
+
+/* ============ TAB BAR ============ */
+#tabBar{display:flex; gap:4px; margin-bottom:18px; flex-wrap:wrap}
+.tab-btn{
+  font-size:12px; font-weight:600; letter-spacing:0.02em; color:var(--text-tertiary);
+  padding:7px 14px; border-radius:10px; transition:all .18s; display:flex; align-items:center; gap:7px;
+}
+.tab-btn:hover{color:var(--text-secondary); background:rgba(255,255,255,0.03)}
+.tab-btn.is-active{color:var(--text-primary); background:var(--card-bg); box-shadow:0 4px 16px rgba(0,0,0,0.35)}
+.tab-dot{width:7px;height:7px;border-radius:2px;background:var(--dot,transparent);flex:none}
+
+/* ============ WIDGET GRID / CARD CHASSIS ============ */
+.widget-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+.col-span-1{grid-column:span 1}.col-span-2{grid-column:span 2}.col-span-3{grid-column:span 3}
+.card{
+  background:var(--card-bg); border:none; border-radius:16px; padding:20px;
+  backdrop-filter:blur(24px) saturate(1.2); -webkit-backdrop-filter:blur(24px) saturate(1.2);
+  box-shadow:0 12px 40px rgba(0,0,0,0.45);
+}
+.bare{background:none;box-shadow:none;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+
+/* ============ SECTION EYEBROW ============ */
+.section{margin-top:6px}
+.section-title{
+  font-size:10.5px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--text-tertiary); display:flex; align-items:center; gap:12px; margin-bottom:12px;
+}
+.section-title::before{content:''; width:18px; height:1px; background:var(--text-tertiary); opacity:0.6}
+.section-title::after{content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent)}
+
+/* ============ GOAL TICKER ============ */
+.ticker-row{display:grid; grid-template-columns:1fr; gap:4px; margin-bottom:4px}
+.goal-ticker{
+  display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:12px;
+  position:relative; overflow:hidden;
+  background-image:
+    linear-gradient(180deg,rgba(0,0,0,0.42) 0%,rgba(0,0,0,0.30) 100%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,0.025) 0,rgba(255,255,255,0.025) 1px,transparent 1px,transparent 3px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.goal-ticker::after{
+  content:''; position:absolute; top:0; bottom:0; width:30%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent);
+  animation:tickerSweep 8s linear infinite; pointer-events:none;
+}
+@keyframes tickerSweep{from{left:-40%}to{left:110%}}
+.goal-ticker-led{display:flex;align-items:center}
+.goal-ticker-led-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 8px rgba(107,227,164,0.7); animation:ledPulse 1.6s ease-in-out infinite;
+}
+@keyframes ledPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.45;transform:scale(0.85)}}
+.goal-ticker-label{font-family:var(--font-mono);font-size:9.5px;font-weight:800;letter-spacing:0.18em;color:var(--text-tertiary)}
+.goal-ticker-stage{flex:1;height:22px;position:relative;overflow:hidden}
+.goal-ticker-row{
+  display:flex;align-items:center;gap:8px;height:22px;position:absolute;inset:0;
+  font-family:var(--font-mono);font-size:12.5px;font-weight:600;
+  font-variant-numeric:tabular-nums;color:var(--text-primary);white-space:nowrap;
+}
+.goal-ticker-status{width:18px;display:flex;justify-content:center;color:var(--text-tertiary)}
+.goal-ticker-status[data-status="done"]{color:var(--success)}
+.goal-ticker-text{flex:1;overflow:hidden;text-overflow:ellipsis}
+.goal-ticker-meta{
+  font-family:var(--font-mono);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;
+  letter-spacing:0.04em;color:var(--text-secondary);padding:3px 8px;border-radius:999px;
+  background:rgba(255,255,255,0.04);
+}
+.goal-ticker-row.is-leaving{animation:ticker-leave .45s cubic-bezier(0.55,0,0.55,1) forwards}
+.goal-ticker-row.is-entering{animation:ticker-enter .45s cubic-bezier(0.22,1,0.36,1) forwards}
+@keyframes ticker-leave{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-100%)}}
+@keyframes ticker-enter{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
+
+/* ============ DAY RING ============ */
+.day-ring-wrap{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;padding:6px 0}
+.ring-box{width:168px;height:168px;position:relative;flex:none}
+.ring-box svg{width:100%;height:100%}
+.ring-fill{transition:stroke-dashoffset .7s cubic-bezier(0.22,1,0.36,1), stroke .7s cubic-bezier(0.22,1,0.36,1)}
+.ring-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;text-align:center;
+}
+.ring-pct{font-size:40px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-0.04em}
+.ring-phase{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;font-weight:800;letter-spacing:0.16em;color:var(--text-tertiary);margin-top:5px}
+.ring-clock{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);margin-top:2px}
+.ring-side{max-width:280px;display:flex;flex-direction:column;gap:6px}
+.ring-status{font-size:14px;font-weight:700;color:var(--text-primary)}
+.ring-remaining{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary)}
+.ring-hours{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary)}
+
+/* ============ TODO CARDS ============ */
+.gm-card{margin-bottom:14px;position:relative;overflow:hidden}
+.gm-card.gm-all-done::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:120px;pointer-events:none;
+  background:radial-gradient(420px 120px at 50% 0%,rgba(107,227,164,0.10),transparent 75%);
+}
+.gm-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:14px;position:relative}
+.gm-eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:0.18em;color:var(--text-tertiary);margin-bottom:6px}
+.gm-sub{font-size:12px;color:var(--text-tertiary);margin-top:4px}
+.gm-progress-row{display:flex;align-items:baseline;gap:6px}
+.gm-progress-num{font-size:42px;font-weight:700;letter-spacing:-0.045em;font-variant-numeric:tabular-nums;line-height:1}
+.gm-progress-total{font-family:var(--font-mono);font-size:18px;color:var(--text-tertiary)}
+.gm-progress-label{font-size:11px;font-weight:600;letter-spacing:0.10em;text-transform:uppercase;color:var(--text-tertiary)}
+.gm-all-done .gm-progress-num,.gm-all-done .gm-progress-label{color:var(--success)}
+.gm-streak{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,0.04);color:var(--text-tertiary);border:1px solid transparent;
+  font-size:12px;align-self:flex-start;
+}
+.gm-streak-bolt{font-size:13px}
+.gm-streak-num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:700}
+.gm-streak-lbl{text-transform:uppercase;letter-spacing:0.10em;font-size:10px}
+.gm-streak.gm-streak-active{background:rgba(242,192,99,0.10);color:var(--warning);border-color:rgba(242,192,99,0.32)}
+.gm-streak.gm-streak-active .gm-streak-bolt{filter:drop-shadow(0 0 6px rgba(242,192,99,0.6))}
+.gm-bar{display:flex;gap:4px;height:6px;margin-bottom:16px}
+.gm-bar:empty{display:none}
+.gm-bar-seg{flex:1;border-radius:3px;background:rgba(255,255,255,0.07)}
+.gm-bar-seg-done{background:var(--success);box-shadow:0 0 6px rgba(107,227,164,0.40)}
+.goal-list{list-style:none}
+.empty-state{font-size:12px;color:var(--text-tertiary);font-style:italic;padding:14px 0;text-align:center}
+.goal-row{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:6px;
+  background:rgba(255,255,255,0.035);border:1px solid var(--hairline);border-radius:12px;
+  transition:background .15s;
+}
+.goal-row:hover{background:rgba(255,255,255,0.055)}
+.goal-row.drag-over{border-top:2px solid var(--text-secondary)}
+.goal-handle{
+  width:14px;color:var(--text-tertiary);letter-spacing:-2px;cursor:grab;
+  opacity:0;transition:opacity .15s;user-select:none;flex:none;
+}
+.goal-row:hover .goal-handle{opacity:1}
+.goal-cb{
+  appearance:none;-webkit-appearance:none;width:22px;height:22px;border-radius:7px;flex:none;
+  border:1.5px solid rgba(255,255,255,0.18);background:rgba(0,0,0,0.25);cursor:pointer;
+  position:relative;transition:all .2s;
+}
+.goal-cb:checked{background:var(--success);border-color:var(--success);box-shadow:0 0 12px rgba(107,227,164,0.40)}
+.goal-cb:checked::after{
+  content:'';position:absolute;left:7px;top:3px;width:5px;height:10px;
+  border:solid #06120B;border-width:0 2px 2px 0;transform:rotate(45deg);
+  animation:cbPop .28s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes cbPop{from{transform:rotate(45deg) scale(0)}to{transform:rotate(45deg) scale(1)}}
+.goal-cb:disabled{opacity:0.4;cursor:not-allowed}
+.goal-text{flex:1;font-size:13.5px;min-width:0;overflow-wrap:anywhere}
+.goal-text[contenteditable="true"]{outline:1px solid rgba(255,255,255,0.25);border-radius:6px;padding:1px 5px}
+.goal-domain-dot{width:8px;height:8px;border-radius:3px;flex:none;background:var(--dot,transparent)}
+.gm-queue-btn{color:var(--text-tertiary);opacity:0.55;font-size:13px;flex:none;transition:all .15s}
+.gm-queue-btn:hover{opacity:1}
+.gm-queue-btn.is-on{color:var(--warning);opacity:1;filter:drop-shadow(0 0 4px rgba(242,192,99,0.65))}
+.goal-delete{color:var(--text-tertiary);opacity:0;font-size:15px;flex:none;transition:all .15s}
+.goal-row:hover .goal-delete{opacity:0.5}
+.goal-delete:hover{color:var(--danger);opacity:1}
+.goal-row.is-done{opacity:0.45;background:rgba(107,227,164,0.04)}
+.goal-row.is-done .goal-text{text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.4)}
+.goal-row.is-queued{background:rgba(242,192,99,0.10);box-shadow:inset 3px 0 0 0 var(--warning)}
+.goal-row.is-queued .goal-text{color:#FFE2A8}
+.goal-row.is-queue-flashing{animation:gm-queue-flash .48s ease}
+@keyframes gm-queue-flash{50%{background:rgba(242,192,99,0.32);transform:scale(1.015)}}
+.gm-more-btn{
+  width:100%;padding:9px;border:1px dashed rgba(255,255,255,0.14);border-radius:12px;
+  color:var(--text-tertiary);font-size:12px;margin-bottom:6px;transition:all .15s;
+}
+.gm-more-btn:hover{color:var(--text-secondary);border-color:rgba(255,255,255,0.25)}
+.gm-push-btn{
+  width:100%;padding:10px;border:1px dashed rgba(255,255,255,0.16);border-radius:12px;
+  color:var(--text-tertiary);font-size:12.5px;margin-top:8px;transition:all .15s;
+}
+.gm-push-btn:hover{color:var(--text-primary);border-color:rgba(255,255,255,0.4)}
+.goal-input-wrap{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--hairline);flex-wrap:wrap}
+.goal-input{
+  flex:1;min-width:160px;padding:11px 14px;border-radius:12px;font-size:13px;
+  background:rgba(0,0,0,0.28);border:1px solid var(--hairline);color:var(--text-primary);
+  transition:border-color .2s;
+}
+.goal-input::placeholder{color:var(--text-tertiary)}
+.goal-input:focus{outline:none;border-color:rgba(255,255,255,0.35)}
+.btn-primary{
+  background:linear-gradient(180deg,#FFFFFF 0%,#E8E5DD 100%);color:#0A0A0B;font-weight:700;
+  font-size:13px;padding:11px 20px;border-radius:12px;transition:all .15s;
+  box-shadow:0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.btn-primary:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.btn-glass{
+  background:rgba(255,255,255,0.04);color:var(--text-primary);font-size:13px;font-weight:600;
+  padding:11px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.10);transition:all .15s;
+}
+.btn-glass:hover{background:rgba(255,255,255,0.08)}
+.btn-danger-ghost{color:var(--danger);opacity:0.8;font-size:12px}
+.btn-danger-ghost:hover{opacity:1}
+.polish-status{font-size:11px;color:var(--text-tertiary);margin-top:6px;min-height:14px}
+.polish-status.is-error{color:var(--danger)}
+.gm-tmr-count{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--text-tertiary)}
+.gm-card-tomorrow .gm-progress-row{display:none}
+
+/* ============ SCORE TILES ============ */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{padding:16px 18px}
+.tile-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.16em;color:var(--text-tertiary);margin-bottom:8px}
+.tile-val{font-size:32px;font-weight:800;letter-spacing:-0.04em;font-variant-numeric:tabular-nums;line-height:1}
+.tile-sub{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);margin-top:6px}
+
+/* ============ CHARTS ============ */
+.chart-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.chart-title{font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--text-tertiary);font-weight:700}
+.chart-toggle{display:flex;gap:2px;background:rgba(0,0,0,0.3);border-radius:8px;padding:2px}
+.chart-toggle-btn{font-size:10.5px;padding:4px 9px;border-radius:6px;color:var(--text-tertiary);text-transform:capitalize}
+.chart-toggle-btn.is-on{background:rgba(255,255,255,0.08);color:var(--text-primary)}
+.chart-svg{width:100%;height:auto;display:block}
+.chart-svg-sq{width:150px;height:150px;display:block;margin:0 auto}
+.chart-lbl{font-size:8px;font-family:var(--font-mono)}
+.chart-foot{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);margin-top:10px;text-align:center}
+.donut-center{font-size:22px;font-weight:800;fill:var(--text-primary)}
+.donut-sub{font-size:8px;fill:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:12px;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text-secondary)}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.dist-bars{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.dist-bar-row{display:flex;align-items:center;gap:8px;font-size:12px}
+.dist-bar-name{color:var(--text-secondary);min-width:88px}
+.dist-bar-track{flex:1;height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden}
+.dist-bar-fill{height:100%;border-radius:4px}
+.dist-bar-n{font-family:var(--font-mono);color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+/* mini rings */
+.ring-strip{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-around;margin-top:8px}
+.mini-ring{display:flex;flex-direction:column;align-items:center;gap:4px;width:78px}
+.mini-ring-svg{width:64px;height:64px}
+.mini-ring-pct{font-size:15px;font-weight:800;fill:var(--text-primary);font-family:var(--font-sans)}
+.mini-ring-name{font-size:10.5px;color:var(--text-secondary);text-align:center;line-height:1.2}
+.mini-ring-sub{font-size:9.5px;font-family:var(--font-mono);color:var(--text-tertiary)}
+.domain-ring-wrap{display:flex;justify-content:center;padding:8px 0}
+/* heatmap */
+.heat-grid{display:flex;gap:3px;margin-top:8px;overflow-x:auto;padding-bottom:4px}
+.heat-col{display:flex;flex-direction:column;gap:3px}
+.heat-cell{width:12px;height:12px;border-radius:3px;flex:none}
+.heat-legend{display:flex;align-items:center;gap:5px;justify-content:flex-end;margin-top:8px;font-size:10px;color:var(--text-tertiary)}
+/* trackers */
+.tracker-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--hairline)}
+.tracker-row:last-child{border-bottom:none}
+.tracker-check{width:26px;height:26px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.18);background:rgba(0,0,0,0.25);color:var(--success);font-size:14px;flex:none;transition:all .2s}
+.tracker-check.is-on{background:var(--success);border-color:var(--success);color:#06120B;box-shadow:0 0 12px rgba(107,227,164,0.4)}
+.tracker-info{flex:1;min-width:0}
+.tracker-name{font-size:13.5px;color:var(--text-primary)}
+.tracker-streak{font-size:10.5px;font-family:var(--font-mono);color:var(--text-tertiary);margin-top:2px}
+.tracker-mini{display:flex;gap:2px;flex-wrap:wrap;max-width:150px;justify-content:flex-end}
+.tracker-dot{width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,0.07)}
+.tracker-dot.is-on{background:var(--success);opacity:0.85}
+/* settings management lists */
+.set-list-row{display:flex;align-items:center;gap:8px;padding:8px;background:rgba(255,255,255,0.03);border-radius:9px;margin-bottom:6px;flex-wrap:wrap}
+.set-list-row .grow{flex:1;min-width:80px}
+.set-updown{display:flex;flex-direction:column;gap:1px}
+.set-updown button{font-size:9px;line-height:1;color:var(--text-tertiary);padding:1px 4px}
+.set-updown button:hover{color:var(--text-primary)}
+.set-tab-block{border:1px solid var(--hairline);border-radius:10px;padding:10px;margin-bottom:10px}
+.set-tab-block-h{font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.set-widget-row{display:flex;align-items:center;gap:7px;padding:5px 7px;font-size:11.5px;color:var(--text-secondary);background:rgba(0,0,0,0.2);border-radius:7px;margin-bottom:4px;flex-wrap:wrap}
+.set-x{color:var(--text-tertiary);font-size:14px;padding:0 3px}
+.set-x:hover{color:var(--danger)}
+.pill-btn{font-size:11px;padding:5px 11px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid var(--hairline);color:var(--text-secondary)}
+.pill-btn.is-on{background:rgba(255,255,255,0.12);color:var(--text-primary)}
+
+/* ===EXT CSS=== */
+
+/* ============ SETTINGS MODAL ============ */
+#settingsModal{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow-y:auto}
+#settingsModal.is-open{display:flex}
+.modal-scrim{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)}
+.modal-card{
+  position:relative;width:100%;max-width:640px;background:#111113;border:1px solid rgba(255,255,255,0.08);
+  border-radius:18px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,0.7);
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal-title{font-size:17px;font-weight:700}
+.modal-close{font-size:20px;color:var(--text-tertiary)}
+.modal-close:hover{color:var(--text-primary)}
+.set-section{margin-bottom:22px}
+.set-h{font-size:10.5px;text-transform:uppercase;letter-spacing:0.16em;color:var(--text-tertiary);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--hairline)}
+.set-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;font-size:13px}
+.set-row label{color:var(--text-secondary);min-width:130px;font-size:12.5px}
+.set-input{padding:7px 10px;border-radius:9px;font-size:12.5px;background:rgba(0,0,0,0.3);border:1px solid var(--hairline);color:var(--text-primary);min-width:0}
+.set-input:focus{outline:none;border-color:rgba(255,255,255,0.3)}
+.set-input[type=color]{padding:2px;width:38px;height:30px;cursor:pointer}
+.set-input[type=number]{width:74px}
+.set-note{font-size:11px;color:var(--text-tertiary);margin-top:4px;line-height:1.5}
+.set-mini{font-size:11px;padding:6px 10px}
+.set-chiprow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:700px){
+  .widget-grid{grid-template-columns:1fr}
+  .col-span-1,.col-span-2,.col-span-3{grid-column:span 1}
+  .tiles{grid-template-columns:1fr 1fr 1fr;gap:8px}
+}
+@media (max-width:480px){
+  .dash-title{font-size:22px}
+  .goal-ticker{padding:9px 12px}
+  .goal-ticker-label{font-size:9px;letter-spacing:0.14em}
+  .goal-ticker-row{font-size:12px}
+  .goal-ticker-meta{font-size:10px;padding:2px 7px}
+  .day-ring-wrap{flex-direction:column;gap:14px}
+  .ring-box{width:144px;height:144px}
+  .ring-pct{font-size:32px}
+  .ring-side{max-width:none;text-align:center;align-items:center}
+  .ring-status{font-size:13px}
+  .tiles{grid-template-columns:1fr 1fr}
+  .tile-val{font-size:24px}
+  .goal-input{min-width:0;flex-basis:100%}
+  .goal-input-wrap .set-input{flex:1;min-width:0}
+  .gm-progress-num{font-size:34px}
+}
+</style>
+</head>
+<body>
+<button id="gearBtn" title="Settings" data-action="open-settings">⚙︎</button>
+<h1 class="dash-title" id="dashTitle">My Dashboard</h1>
+<div id="banner"></div>
+<nav id="tabBar"></nav>
+<main id="tabHost"></main>
+
+<!--SEED-->
+<script type="application/json" id="claude-seed">{"generated": "2026-07-23", "items": [{"h": "1n6pgvk", "domain": "business", "text": "Set up drop tracking when you want it: fill ops/drops/inputs/drop-brief-current.md"}]}</script>
+<!--/SEED-->
+
+<div id="settingsModal">
+  <div class="modal-scrim" data-action="close-settings"></div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">Settings</div>
+      <button class="modal-close" data-action="close-settings">×</button>
+    </div>
+    <div id="settingsBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const ANTHROPIC_API_KEY = '';
+
+/* ================= U — utilities ================= */
+const U = {
+  el(tag, attrs, ...kids){
+    const n = document.createElement(tag);
+    if (attrs) for (const [k,v] of Object.entries(attrs)){
+      if (k === 'class') n.className = v;
+      else if (k === 'text') n.textContent = v;
+      else if (k === 'html') n.innerHTML = v;
+      else if (k === 'style') n.style.cssText = v;
+      else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+      else if (v !== null && v !== undefined && v !== false) n.setAttribute(k, v === true ? '' : v);
+    }
+    for (const kid of kids) if (kid) n.appendChild(typeof kid === 'string' ? document.createTextNode(kid) : kid);
+    return n;
+  },
+  uid(){ return 'x' + Math.random().toString(36).slice(2, 9); },
+  fnv(str){
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+    return (h >>> 0).toString(36);
+  },
+  now(){
+    const off = parseInt(localStorage.getItem('dash_debug_now') || '0', 10) || 0;
+    return new Date(Date.now() + off);
+  },
+  dstr(d){
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  },
+  parseDstr(s){ const [y,m,dd] = s.split('-').map(Number); return new Date(y, m-1, dd); },
+  activeDate(){
+    const n = U.now();
+    if (n.getHours() < Config.get().dayBoundaryHour) n.setDate(n.getDate() - 1);
+    return U.dstr(n);
+  },
+  tomorrowDate(){
+    const n = U.now();
+    if (n.getHours() >= Config.get().dayBoundaryHour) n.setDate(n.getDate() + 1);
+    return U.dstr(n);
+  },
+  formatDate(dstr){
+    const d = U.parseDstr(dstr);
+    return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+  },
+  clock12(d){
+    let h = d.getHours() % 12; if (h === 0) h = 12;
+    return h + ':' + String(d.getMinutes()).padStart(2,'0') + ' ' + (d.getHours() < 12 ? 'AM' : 'PM');
+  },
+  lerp(a, b, t){ return a + (b - a) * t; },
+  emit(name, detail){ document.dispatchEvent(new CustomEvent(name, { detail })); },
+  banner(msg, ms){
+    const b = U.el('div', { class:'banner-msg', text: msg });
+    document.getElementById('banner').appendChild(b);
+    if (ms !== 0) setTimeout(() => b.remove(), ms || 6000);
+  },
+};
+
+/* ================= K — key map ================= */
+const K = {
+  settings: 'dash_settings_v1',
+  settingsBackup: 'dash_settings_backup',
+  goals: d => 'goals:' + d,
+  goalsPrefix: 'goals:',
+  streak: 'goal_streak_v1',
+  backlog: 'dash_backlog_v1',
+  history: 'dash_history_v1',
+  trackerMarks: 'dash_tracker_marks_v1',
+  seedSeen: 'dash_seed_seen_v1',
+};
+
+/* ================= Store ================= */
+const Store = {
+  get(key){
+    try { const raw = localStorage.getItem(key); return raw === null ? null : JSON.parse(raw); }
+    catch(e){ return null; }
+  },
+  set(key, value){
+    try { localStorage.setItem(key, JSON.stringify(value)); }
+    catch(e){ U.banner('Storage write failed (quota?) — export your data from Settings soon.'); }
+    if (key.startsWith(K.goalsPrefix)) U.emit('goals-changed', { key });
+  },
+  del(key){ try { localStorage.removeItem(key); } catch(e){} },
+  listKeys(prefix){
+    const out = [];
+    for (let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix)) out.push(k);
+    }
+    return out.sort();
+  },
+};
+
+/* ================= Config ================= */
+const VALIDATED_COLORS = { business:'#3987e5', 'fitness-health':'#d95926', marketing:'#199e70', school:'#c98500', 'self-development':'#d55181' };
+function defaultConfig(){
+  const domains = [
+    { id:'business', name:'Business', color: VALIDATED_COLORS['business'] },
+    { id:'fitness-health', name:'Fitness & Health', color: VALIDATED_COLORS['fitness-health'] },
+    { id:'marketing', name:'Marketing', color: VALIDATED_COLORS['marketing'] },
+    { id:'school', name:'School', color: VALIDATED_COLORS['school'] },
+    { id:'self-development', name:'Self-development', color: VALIDATED_COLORS['self-development'] },
+  ];
+  const tabs = [
+    { id:'today', kind:'today', label:'Today' },
+    ...domains.map(d => ({ id:'tab_' + d.id, kind:'domain', domainId: d.id, label: d.name })),
+    { id:'stats', kind:'stats', label:'Stats' },
+  ];
+  const mk = (type, tab, order, span, extra) => ({ id:'w_' + U.uid(), type, tab, visible:true, order, span, ...(extra || {}) });
+  const widgets = [
+    mk('scoreTiles','today',0,3), mk('goalTicker','today',1,3), mk('dayRing','today',2,3),
+    mk('todoSection','today',3,3), mk('trackers','today',4,3),
+    mk('trendChart','stats',0,2), mk('distChart','stats',1,1),
+    mk('domainRings','stats',2,3), mk('heatmap','stats',3,3),
+  ];
+  for (const d of domains){
+    widgets.push(mk('domainToday','tab_'+d.id,0,2,{ domainId:d.id }));
+    widgets.push(mk('domainRing','tab_'+d.id,1,1,{ domainId:d.id }));
+    widgets.push(mk('domainBacklog','tab_'+d.id,2,3,{ domainId:d.id }));
+  }
+  return {
+    v: 1,
+    title: 'My Dashboard',
+    theme: { fontChoice:'system', customStack:'', baseSize:15, overrides:{} },
+    hours: { wake: 8, sleep: 24 },
+    dayBoundaryHour: 6,
+    domains, tabs, widgets,
+    trackers: [],
+    chartPrefs: { trend:'bars', dist:'donut' },
+  };
+}
+function deepMerge(base, over){
+  if (Array.isArray(base) || Array.isArray(over) || typeof base !== 'object' || base === null) {
+    return over === undefined ? base : over;
+  }
+  const out = { ...base };
+  if (over && typeof over === 'object'){
+    for (const k of Object.keys(over)) out[k] = deepMerge(base[k], over[k]);
+  }
+  return out;
+}
+const MIGRATIONS = {}; // future schema bumps: v -> fn(config)
+const Config = (function(){
+  let cfg;
+  function load(){
+    try {
+      const stored = Store.get(K.settings);
+      cfg = stored ? deepMerge(defaultConfig(), stored) : defaultConfig();
+      while (MIGRATIONS[cfg.v]) cfg = MIGRATIONS[cfg.v](cfg);
+    } catch(e){
+      const raw = localStorage.getItem(K.settings);
+      if (raw) try { localStorage.setItem(K.settingsBackup, raw); } catch(e2){}
+      cfg = defaultConfig();
+      U.banner('Settings could not be loaded — defaults restored (old settings backed up).', 0);
+    }
+    return cfg;
+  }
+  function save(){ Store.set(K.settings, cfg); }
+  return {
+    load,
+    get(){ return cfg; },
+    update(fn){ fn(cfg); save(); U.emit('config-changed'); },
+    domain(id){ return cfg.domains.find(d => d.id === id) || null; },
+    applyTheme(){
+      const r = document.documentElement.style;
+      const t = cfg.theme;
+      const stacks = {
+        system:'-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif',
+        mono:'ui-monospace,"SF Mono",Menlo,Consolas,monospace',
+        serif:'"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif',
+        rounded:'ui-rounded,"SF Pro Rounded",-apple-system,"Segoe UI",sans-serif',
+      };
+      r.setProperty('--font-sans', t.fontChoice === 'custom' && t.customStack ? t.customStack : (stacks[t.fontChoice] || stacks.system));
+      r.setProperty('--base-size', (t.baseSize || 15) + 'px');
+      const map = { bg:'--bg', primary:'--text-primary', secondary:'--text-secondary', tertiary:'--text-tertiary',
+                    success:'--success', warning:'--warning', danger:'--danger', washA:'--wash-a', washB:'--wash-b' };
+      for (const [k, varName] of Object.entries(map)){
+        if (t.overrides[k]) r.setProperty(varName, t.overrides[k]); else r.removeProperty(varName);
+      }
+      document.getElementById('dashTitle').textContent = cfg.title || 'My Dashboard';
+      document.title = cfg.title || 'My Dashboard';
+    },
+  };
+})();
+
+/* ================= Data ================= */
+const Data = {
+  goals(dstr){ return Store.get(K.goals(dstr)) || []; },
+  saveGoals(dstr, goals){ Store.set(K.goals(dstr), goals); },
+  todayGoals(){ return Data.goals(U.activeDate()); },
+
+  addGoal(dstr, text, domain){
+    const goals = Data.goals(dstr);
+    goals.push({ id: U.uid(), text, done:false, ...(domain ? { domain } : {}) });
+    Data.saveGoals(dstr, goals);
+  },
+  toggleGoal(dstr, id, done){
+    const goals = Data.goals(dstr);
+    const g = goals.find(x => x.id === id); if (!g) return;
+    g.done = done;
+    if (done) g.doneAt = Date.now(); else delete g.doneAt;
+    Data.saveGoals(dstr, goals);
+  },
+  editGoal(dstr, id, text){
+    const goals = Data.goals(dstr);
+    const g = goals.find(x => x.id === id); if (!g) return;
+    g.text = text; Data.saveGoals(dstr, goals);
+  },
+  deleteGoal(dstr, id){
+    Data.saveGoals(dstr, Data.goals(dstr).filter(x => x.id !== id));
+  },
+  toggleQueued(dstr, id){
+    const goals = Data.goals(dstr);
+    const g = goals.find(x => x.id === id); if (!g) return;
+    g.queued = !g.queued; if (!g.queued) delete g.queued;
+    Data.saveGoals(dstr, goals);
+  },
+  reorderGoal(dstr, fromIdx, toIdx){
+    const goals = Data.goals(dstr);
+    const [item] = goals.splice(fromIdx, 1);
+    goals.splice(toIdx, 0, item);
+    Data.saveGoals(dstr, goals);
+  },
+  pushRemaining(){
+    const today = U.activeDate(), tmr = U.tomorrowDate();
+    const goals = Data.goals(today);
+    const tmrGoals = Data.goals(tmr);
+    for (const g of goals.filter(x => !x.done)){
+      if (!tmrGoals.some(t => t.text === g.text)) tmrGoals.push({ id: U.uid(), text: g.text, done:false, ...(g.domain ? { domain:g.domain } : {}) });
+    }
+    Data.saveGoals(tmr, tmrGoals);
+    Data.saveGoals(today, goals.filter(g => g.done));
+  },
+
+  history(){ return Store.get(K.history) || {}; },
+  trackerMarks(){ return Store.get(K.trackerMarks) || {}; },
+  markTracker(dstr, trackerId, on){
+    const marks = Data.trackerMarks();
+    marks[dstr] = marks[dstr] || {};
+    if (on) marks[dstr][trackerId] = true; else delete marks[dstr][trackerId];
+    Store.set(K.trackerMarks, marks);
+    U.emit('goals-changed', { tracker: trackerId });
+  },
+
+  rollover(){
+    const active = U.activeDate();
+    const hist = Data.history();
+    const marks = Data.trackerMarks();
+    let todayGoals = null;
+    for (const key of Store.listKeys(K.goalsPrefix)){
+      const dstr = key.slice(K.goalsPrefix.length);
+      if (dstr >= active) continue;
+      const goals = Store.get(key) || [];
+      const byDomain = {};
+      for (const g of goals){
+        const dom = g.domain || '_none';
+        byDomain[dom] = byDomain[dom] || { t:0, d:0 };
+        byDomain[dom].t++; if (g.done) byDomain[dom].d++;
+      }
+      hist[dstr] = { t: goals.length, d: goals.filter(g => g.done).length, byDomain, trackers: marks[dstr] || {} };
+      const undone = goals.filter(g => !g.done);
+      if (undone.length){
+        if (todayGoals === null) todayGoals = Data.goals(active);
+        for (const g of undone){
+          if (!todayGoals.some(t => t.text === g.text)) todayGoals.push({ id: U.uid(), text: g.text, done:false, ...(g.domain ? { domain:g.domain } : {}) });
+        }
+      }
+      Store.del(key);
+      delete marks[dstr];
+    }
+    const dates = Object.keys(hist).sort();
+    while (dates.length > 400) delete hist[dates.shift()];
+    Store.set(K.history, hist);
+    Store.set(K.trackerMarks, marks);
+    if (todayGoals !== null) Data.saveGoals(active, todayGoals);
+  },
+
+  streakCheck(){
+    const st = Store.get(K.streak) || { count: 0, lastProcessedDate: null };
+    const active = U.activeDate();
+    const hist = Data.history();
+    const dates = Object.keys(hist).sort().filter(d => d < active && (!st.lastProcessedDate || d > st.lastProcessedDate));
+    for (const d of dates){
+      const h = hist[d];
+      if (h.t === 0){ /* empty day — skip */ }
+      else if (h.d === h.t) st.count++;
+      else st.count = 0;
+      h.streakAfter = st.count;
+      st.lastProcessedDate = d;
+    }
+    Store.set(K.history, hist);
+    Store.set(K.streak, st);
+    return st;
+  },
+  streak(){ return Store.get(K.streak) || { count: 0, lastProcessedDate: null }; },
+
+  backlog(){ return Store.get(K.backlog) || {}; },
+  backlogFor(domainId){ return (Data.backlog())[domainId] || []; },
+  addBacklog(domainId, text){
+    const b = Data.backlog();
+    b[domainId] = b[domainId] || [];
+    b[domainId].push({ id: U.uid(), text, addedAt: U.activeDate() });
+    Store.set(K.backlog, b);
+    U.emit('goals-changed', { backlog: domainId });
+  },
+  editBacklog(domainId, id, text){
+    const b = Data.backlog();
+    const item = (b[domainId] || []).find(x => x.id === id); if (!item) return;
+    item.text = text; Store.set(K.backlog, b);
+    U.emit('goals-changed', { backlog: domainId });
+  },
+  deleteBacklog(domainId, id){
+    const b = Data.backlog();
+    b[domainId] = (b[domainId] || []).filter(x => x.id !== id);
+    Store.set(K.backlog, b);
+    U.emit('goals-changed', { backlog: domainId });
+  },
+  sendToToday(domainId, id){
+    const b = Data.backlog();
+    const item = (b[domainId] || []).find(x => x.id === id); if (!item) return;
+    b[domainId] = b[domainId].filter(x => x.id !== id);
+    Store.set(K.backlog, b);
+    const today = U.activeDate();
+    const goals = Data.goals(today);
+    if (!goals.some(g => g.text === item.text)){
+      goals.push({ id: U.uid(), text: item.text, done:false, ...(domainId !== '_none' ? { domain: domainId } : {}), ...(item.seedH ? { seedH: item.seedH } : {}) });
+    }
+    Data.saveGoals(today, goals);
+  },
+  reassignDomain(fromId, toId){
+    for (const key of Store.listKeys(K.goalsPrefix)){
+      const goals = Store.get(key) || [];
+      let changed = false;
+      for (const g of goals) if (g.domain === fromId){ if (toId) g.domain = toId; else delete g.domain; changed = true; }
+      if (changed) Store.set(key, goals);
+    }
+    const b = Data.backlog();
+    if (b[fromId]){
+      const target = toId || '_none';
+      b[target] = (b[target] || []).concat(b[fromId]);
+      delete b[fromId];
+      Store.set(K.backlog, b);
+    }
+  },
+
+  seedMerge(){
+    let seed;
+    try { seed = JSON.parse(document.getElementById('claude-seed').textContent); }
+    catch(e){ return; }
+    const items = (seed && seed.items) || [];
+    if (!items.length){ Store.set(K.seedSeen, []); return; }
+    const currentHashes = new Set(items.map(i => i.h));
+    const seen = (Store.get(K.seedSeen) || []).filter(h => currentHashes.has(h));
+    const seenSet = new Set(seen);
+    const today = U.activeDate();
+    const domainIds = new Set(Config.get().domains.map(d => d.id));
+    let imported = 0;
+    for (const item of items){
+      if (!item.h || seenSet.has(item.h)) continue;
+      seenSet.add(item.h); seen.push(item.h);
+      const domain = domainIds.has(item.domain) ? item.domain : null;
+      const dueToday = item.due && item.due <= today;
+      if (dueToday){
+        const goals = Data.goals(today);
+        if (!goals.some(g => g.text === item.text)) goals.push({ id: U.uid(), text: item.text, done:false, ...(domain ? { domain } : {}), seedH: item.h });
+        Data.saveGoals(today, goals);
+      } else {
+        const b = Data.backlog();
+        const bucket = domain || '_none';
+        b[bucket] = b[bucket] || [];
+        if (!b[bucket].some(x => x.text === item.text)) b[bucket].push({ id: U.uid(), text: item.text, addedAt: today, seedH: item.h, ...(item.due ? { due: item.due } : {}) });
+        Store.set(K.backlog, b);
+      }
+      imported++;
+    }
+    Store.set(K.seedSeen, seen);
+    if (imported) U.banner(imported + ' task' + (imported > 1 ? 's' : '') + ' pulled in from your vault.', 5000);
+  },
+
+  weekAvg(){
+    const hist = Data.history();
+    const active = U.activeDate();
+    const vals = [];
+    for (let i = 1; i <= 6; i++){
+      const d = U.parseDstr(active); d.setDate(d.getDate() - i);
+      const h = hist[U.dstr(d)];
+      if (h && h.t > 0) vals.push(h.d / h.t);
+    }
+    const tg = Data.todayGoals();
+    if (tg.length) vals.push(tg.filter(g => g.done).length / tg.length);
+    if (!vals.length) return null;
+    return Math.round(vals.reduce((a,b) => a+b, 0) / vals.length * 100);
+  },
+};
+
+/* ================= UI state ================= */
+const UI = {
+  editing: null,
+  dragging: false,
+  dirty: false,
+  activeTab: 'today',
+  expanded: {},
+};
+
+/* ================= Widgets registry ================= */
+const Widgets = (function(){
+  const types = {};
+  return {
+    register(type, def){ types[type] = def; },
+    get(type){ return types[type]; },
+    catalog(){ return Object.entries(types).map(([type, d]) => ({ type, label: d.label, allowedTabs: d.allowedTabs })); },
+  };
+})();
+
+/* ---------- shared row machinery ---------- */
+function buildGoalRow(goal, opts){
+  const dom = goal.domain ? Config.domain(goal.domain) : null;
+  const row = U.el('li', { class:'goal-row' + (goal.done ? ' is-done' : '') + (goal.queued ? ' is-queued' : ''), draggable:'true', 'data-id': goal.id });
+  row.appendChild(U.el('span', { class:'goal-handle', title:'Drag to reorder' }, '⋮⋮'));
+  if (opts.showDomainDot) row.appendChild(U.el('span', { class:'goal-domain-dot', style: dom ? '--dot:' + dom.color : '', title: dom ? dom.name : 'No domain' }));
+  const cb = U.el('input', { type:'checkbox', class:'goal-cb' });
+  cb.checked = !!goal.done;
+  if (opts.readOnly){ cb.disabled = true; cb.title = 'Activates at ' + Config.get().dayBoundaryHour + ' AM tomorrow'; }
+  else if (opts.list === 'backlog'){ cb.disabled = true; cb.title = 'Send to today to work on it'; }
+  else cb.addEventListener('change', () => { UI.editing = null; Data.toggleGoal(opts.key, goal.id, cb.checked); });
+  row.appendChild(cb);
+  const text = U.el('span', { class:'goal-text', text: goal.text });
+  makeInlineEdit(text, newText => {
+    if (opts.list === 'backlog') Data.editBacklog(opts.domainId, goal.id, newText);
+    else Data.editGoal(opts.key, goal.id, newText);
+  });
+  row.appendChild(text);
+  if (opts.list === 'backlog'){
+    row.appendChild(U.el('button', { class:'btn-glass set-mini', title:'Send to today', onclick: () => Data.sendToToday(opts.domainId, goal.id) }, '→ today'));
+  } else if (!opts.readOnly){
+    const qb = U.el('button', { class:'gm-queue-btn' + (goal.queued ? ' is-on' : ''), title:'Queue for productivity window' }, '⚡');
+    qb.addEventListener('click', () => {
+      row.classList.add('is-queue-flashing');
+      setTimeout(() => Data.toggleQueued(opts.key, goal.id), 480);
+    });
+    row.appendChild(qb);
+  } else {
+    row.appendChild(U.el('button', { class:'gm-queue-btn', disabled:true, title:'Activates tomorrow' }, '⚡'));
+  }
+  const del = U.el('button', { class:'goal-delete', title:'Delete' }, '×');
+  del.addEventListener('click', () => {
+    if (opts.list === 'backlog') Data.deleteBacklog(opts.domainId, goal.id);
+    else Data.deleteGoal(opts.key, goal.id);
+  });
+  row.appendChild(del);
+  wireDragRow(row, opts);
+  return row;
+}
+function makeInlineEdit(el, commit){
+  el.addEventListener('click', () => {
+    if (el.isContentEditable) return;
+    UI.editing = (el.closest('.goal-row') && el.closest('.goal-row').dataset.id) || 'x';
+    el.dataset.orig = el.textContent;
+    el.contentEditable = 'true';
+    el.focus();
+    const range = document.createRange(); range.selectNodeContents(el); range.collapse(false);
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  });
+  const finish = (save) => {
+    if (el.contentEditable !== 'true') return;
+    el.contentEditable = 'false';
+    UI.editing = null;
+    const t = el.textContent.trim();
+    if (save && t && t !== el.dataset.orig) commit(t);
+    else U.emit('goals-changed', {});
+  };
+  el.addEventListener('blur', () => finish(true));
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter'){ e.preventDefault(); finish(true); }
+    if (e.key === 'Escape'){ el.textContent = el.dataset.orig; finish(false); }
+  });
+}
+function wireDragRow(row, opts){
+  row.addEventListener('dragstart', e => {
+    UI.dragging = true;
+    e.dataTransfer.setData('text/plain', JSON.stringify({ id: row.dataset.id, list: opts.list, key: opts.key || '', domainId: opts.domainId || '' }));
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  row.addEventListener('dragover', e => { e.preventDefault(); row.classList.add('drag-over'); });
+  row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
+  row.addEventListener('drop', e => {
+    e.preventDefault(); row.classList.remove('drag-over');
+    let payload; try { payload = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(err){ return; }
+    if (payload.list !== opts.list || payload.key !== (opts.key || '') || payload.domainId !== (opts.domainId || '')) return;
+    if (opts.list === 'backlog'){
+      const b = Data.backlog();
+      const arr = b[opts.domainId] || [];
+      const from = arr.findIndex(x => x.id === payload.id);
+      const to = arr.findIndex(x => x.id === row.dataset.id);
+      if (from < 0 || to < 0 || from === to) return;
+      const [item] = arr.splice(from, 1); arr.splice(to, 0, item);
+      Store.set(K.backlog, b);
+      U.emit('goals-changed', { backlog: opts.domainId });
+    } else {
+      const goals = Data.goals(opts.key);
+      const from = goals.findIndex(x => x.id === payload.id);
+      const to = goals.findIndex(x => x.id === row.dataset.id);
+      if (from < 0 || to < 0 || from === to) return;
+      Data.reorderGoal(opts.key, from, to);
+    }
+  });
+  row.addEventListener('dragend', () => {
+    UI.dragging = false;
+    if (UI.dirty){ UI.dirty = false; U.emit('goals-changed', {}); }
+  });
+}
+function renderListInto(goals, listEl, emptyEl, opts){
+  listEl.innerHTML = '';
+  const widgetKey = opts.widgetId + ':' + (opts.key || opts.domainId || '');
+  const expanded = UI.expanded[widgetKey];
+  const visible = (goals.length > 5 && !expanded) ? goals.slice(0, 5) : goals;
+  for (const g of visible) listEl.appendChild(buildGoalRow(g, opts));
+  if (goals.length > 5){
+    const more = U.el('button', { class:'gm-more-btn', text: expanded ? 'Show less ▴' : 'Show ' + (goals.length - 5) + ' more ▾' });
+    more.addEventListener('click', () => { UI.expanded[widgetKey] = !expanded; U.emit('goals-changed', {}); });
+    listEl.appendChild(more);
+  }
+  emptyEl.style.display = goals.length ? 'none' : '';
+}
+function makeAddHandlers(input, addBtn, polishBtn, getKey, statusEl, opts){
+  const add = (textOverride) => {
+    const t = (textOverride !== undefined ? textOverride : input.value).trim(); if (!t) return;
+    if (opts && opts.backlogDomain !== undefined) Data.addBacklog(opts.backlogDomain, t);
+    else Data.addGoal(getKey(), t, opts && opts.domain);
+    input.value = '';
+  };
+  const status = (msg, isErr) => {
+    statusEl.textContent = msg;
+    statusEl.classList.toggle('is-error', !!isErr);
+    setTimeout(() => { statusEl.textContent = ''; statusEl.classList.remove('is-error'); }, 3500);
+  };
+  addBtn.addEventListener('click', () => add());
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  if (polishBtn) polishBtn.addEventListener('click', async () => {
+    const t = input.value.trim(); if (!t) return;
+    if (!ANTHROPIC_API_KEY){ add(); status('Polish needs an Anthropic API key — added as-typed.'); return; }
+    try {
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'x-api-key': ANTHROPIC_API_KEY,
+                  'anthropic-version':'2023-06-01', 'anthropic-dangerous-direct-browser-access':'true' },
+        body: JSON.stringify({ model:'claude-sonnet-4-5', max_tokens:1000,
+          messages:[{ role:'user', content:'Clean up exactly ONE goal for a personal to-do list and return it as a one-element JSON array of strings. No preamble, no code fences. Goal: ' + t }] }),
+      });
+      const data = await resp.json();
+      const arr = JSON.parse(data.content[0].text);
+      add(arr[0]);
+    } catch(e){ add(); status('Polish failed — added as-typed.', true); }
+  });
+}
+
+/* ---------- widget: scoreTiles ---------- */
+Widgets.register('scoreTiles', {
+  label:'Score tiles', defaultSpan:3, allowedTabs:['today','stats'], updatesOn:['goals-changed','date-rolled'],
+  render(host){
+    host.classList.add('bare');
+    const draw = () => {
+      const goals = Data.todayGoals();
+      const done = goals.filter(g => g.done).length;
+      const pct = goals.length ? Math.round(done / goals.length * 100) : null;
+      const wk = Data.weekAvg();
+      const st = Data.streak().count;
+      host.innerHTML = '';
+      const tiles = U.el('div', { class:'tiles' });
+      const tile = (lbl, val, sub) => {
+        const t = U.el('div', { class:'card tile' });
+        t.appendChild(U.el('div', { class:'tile-lbl', text: lbl }));
+        t.appendChild(U.el('div', { class:'tile-val', text: val }));
+        if (sub) t.appendChild(U.el('div', { class:'tile-sub', text: sub }));
+        return t;
+      };
+      tiles.appendChild(tile('Today', pct === null ? '—' : pct + '%', done + '/' + goals.length + ' done'));
+      tiles.appendChild(tile('Streak', st + 'd', st > 0 ? 'keep it alive' : 'start today'));
+      tiles.appendChild(tile('Week avg', wk === null ? '—' : wk + '%', 'last 7 days'));
+      host.appendChild(tiles);
+    };
+    draw();
+    return { update: draw };
+  },
+});
+
+/* ---------- widget: goalTicker ---------- */
+Widgets.register('goalTicker', {
+  label:'Goal ticker', defaultSpan:3, allowedTabs:['today','stats'], updatesOn:['goals-changed','tick-5s','date-rolled'],
+  render(host){
+    host.classList.add('bare');
+    host.innerHTML = '';
+    const wrap = U.el('div', { class:'ticker-row' });
+    const ticker = U.el('div', { class:'goal-ticker', 'aria-live':'polite', 'aria-atomic':'true' });
+    ticker.appendChild(U.el('div', { class:'goal-ticker-led' }, U.el('span', { class:'goal-ticker-led-dot' })));
+    ticker.appendChild(U.el('div', { class:'goal-ticker-label', text:'GOALS' }));
+    const stage = U.el('div', { class:'goal-ticker-stage' });
+    ticker.appendChild(stage);
+    const meta = U.el('div', { class:'goal-ticker-meta', text:'0/0' });
+    ticker.appendChild(meta);
+    wrap.appendChild(ticker);
+    host.appendChild(wrap);
+
+    let cycleIdx = 0, first = true;
+    const items = () => {
+      const goals = Data.todayGoals();
+      const done = goals.filter(g => g.done).length;
+      let list;
+      if (!goals.length) list = [{ status:'empty', text:'No goals set for today — add one to get rolling.' }];
+      else if (done === goals.length) list = [{ status:'done', text:'✓ All goals done — solid day.' }];
+      else list = goals.filter(g => !g.done).map(g => ({ status:'pending', text: g.text }));
+      return { list, done, total: goals.length };
+    };
+    const glyph = s => s === 'done' ? '✓' : s === 'pending' ? '○' : '·';
+    const tick = () => {
+      const { list, done, total } = items();
+      if (cycleIdx >= list.length) cycleIdx = 0;
+      const item = list[cycleIdx];
+      meta.textContent = done + '/' + total;
+      const old = stage.querySelector('.goal-ticker-row:not(.is-leaving)');
+      const row = U.el('div', { class:'goal-ticker-row' },
+        U.el('span', { class:'goal-ticker-status', 'data-status': item.status === 'empty' ? '' : item.status, text: glyph(item.status) }),
+        U.el('span', { class:'goal-ticker-text', text: item.text }));
+      if (old && !first){
+        old.classList.add('is-leaving');
+        setTimeout(() => old.remove(), 460);
+        row.classList.add('is-entering');
+      } else if (old) old.remove();
+      stage.appendChild(row);
+      first = false;
+      cycleIdx = (cycleIdx + 1) % list.length;
+    };
+    tick();
+    return {
+      update(ev){
+        if (ev && ev.type === 'goals-changed'){ cycleIdx = 0; tick(); }
+        else tick();
+      },
+    };
+  },
+});
+
+/* ---------- widget: dayRing ---------- */
+const SUN_STOPS = [
+  [255,216,158],[255,205,121],[255,227,143],[255,183,106],[255,149,89],
+  [243,111,79],[226,93,122],[123,91,176],[47,58,102],
+];
+Widgets.register('dayRing', {
+  label:'Day ring', defaultSpan:3, allowedTabs:['today','stats'], updatesOn:['tick-60s','config-changed'],
+  render(host){
+    host.classList.add('card');
+    host.innerHTML = '';
+    const C = 2 * Math.PI * 52;
+    const wrap = U.el('div', { class:'day-ring-wrap' });
+    const box = U.el('div', { class:'ring-box' });
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 120 120');
+    const defs = document.createElementNS(svgNS, 'defs');
+    defs.innerHTML = '<filter id="ringGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+    svg.appendChild(defs);
+    const track = document.createElementNS(svgNS, 'circle');
+    track.setAttribute('cx','60'); track.setAttribute('cy','60'); track.setAttribute('r','52');
+    track.setAttribute('fill','none'); track.setAttribute('stroke','rgba(255,255,255,0.06)'); track.setAttribute('stroke-width','8');
+    const fill = document.createElementNS(svgNS, 'circle');
+    fill.setAttribute('cx','60'); fill.setAttribute('cy','60'); fill.setAttribute('r','52');
+    fill.setAttribute('fill','none'); fill.setAttribute('stroke-width','8'); fill.setAttribute('stroke-linecap','round');
+    fill.setAttribute('transform','rotate(-90 60 60)'); fill.setAttribute('filter','url(#ringGlow)');
+    fill.setAttribute('stroke-dasharray', C); fill.setAttribute('class','ring-fill');
+    svg.appendChild(track); svg.appendChild(fill);
+    box.appendChild(svg);
+    const overlay = U.el('div', { class:'ring-overlay' });
+    const pctEl = U.el('div', { class:'ring-pct', text:'—' });
+    const phaseEl = U.el('div', { class:'ring-phase', text:'' });
+    const clockEl = U.el('div', { class:'ring-clock', text:'' });
+    overlay.appendChild(pctEl); overlay.appendChild(phaseEl); overlay.appendChild(clockEl);
+    box.appendChild(overlay);
+    const side = U.el('div', { class:'ring-side' });
+    const statusEl = U.el('div', { class:'ring-status', text:'' });
+    const remEl = U.el('div', { class:'ring-remaining', text:'' });
+    const hoursEl = U.el('div', { class:'ring-hours', text:'' });
+    side.appendChild(statusEl); side.appendChild(remEl); side.appendChild(hoursEl);
+    wrap.appendChild(box); wrap.appendChild(side);
+    host.appendChild(wrap);
+
+    const fmtH = h => {
+      const hh = ((Math.floor(h) % 24) + 24) % 24;
+      let display = hh % 12; if (display === 0) display = 12;
+      return display + ':00 ' + (hh < 12 ? 'AM' : 'PM');
+    };
+    const update = () => {
+      const { wake, sleep } = Config.get().hours;
+      const span = sleep - wake;
+      const now = U.now();
+      const hours = now.getHours() + now.getMinutes()/60 + now.getSeconds()/3600;
+      clockEl.textContent = U.clock12(now);
+      hoursEl.textContent = fmtH(wake) + ' – ' + (sleep >= 24 ? '12:00 AM' : fmtH(sleep));
+      const remain = (target) => {
+        const mins = Math.max(0, Math.round((target - hours) * 60));
+        return Math.floor(mins/60) + 'h ' + (mins%60) + 'm';
+      };
+      if (hours < wake){
+        fill.setAttribute('stroke', '#4D4B47');
+        fill.setAttribute('stroke-dashoffset', C);
+        pctEl.textContent = '—';
+        phaseEl.textContent = 'SLEEPING';
+        statusEl.textContent = '😴 Still sleeping';
+        remEl.textContent = remain(wake) + ' until wake-up';
+      } else if (hours < sleep){
+        const pct = (hours - wake) / span * 100;
+        const t = pct / 100 * (SUN_STOPS.length - 1);
+        const i = Math.min(Math.floor(t), SUN_STOPS.length - 2);
+        const f = t - i;
+        const rgb = [0,1,2].map(ch => Math.round(U.lerp(SUN_STOPS[i][ch], SUN_STOPS[i+1][ch], f)));
+        fill.setAttribute('stroke', 'rgb(' + rgb.join(',') + ')');
+        fill.setAttribute('stroke-dashoffset', C * (1 - pct/100));
+        pctEl.textContent = Math.round(pct) + '%';
+        let phase, status;
+        if (pct < 25){ phase='MORNING'; status='☀️ Morning — fresh start'; }
+        else if (pct < 50){ phase='MIDDAY'; status='⚡ Midday — keep moving'; }
+        else if (pct < 75){ phase='AFTERNOON'; status='🔥 Afternoon — push it'; }
+        else if (pct < 90){ phase='EVENING'; status='⏳ Evening — wrap up'; }
+        else { phase='BEDTIME'; status='🌙 Bedtime soon'; }
+        phaseEl.textContent = phase;
+        statusEl.textContent = status;
+        remEl.textContent = remain(sleep) + ' awake time left';
+      } else {
+        fill.setAttribute('stroke', '#E25D7A');
+        fill.setAttribute('stroke-dashoffset', 0);
+        pctEl.textContent = '100%';
+        phaseEl.textContent = 'PAST BEDTIME';
+        statusEl.textContent = '⚠️ Past bedtime';
+        remEl.textContent = 'Sleep!';
+      }
+    };
+    update();
+    return { update };
+  },
+});
+
+/* ---------- widget: todoSection ---------- */
+Widgets.register('todoSection', {
+  label:'To Do List', defaultSpan:3, allowedTabs:['today'], updatesOn:['goals-changed','date-rolled'],
+  render(host, ctx){
+    host.classList.add('bare');
+    const widgetId = ctx.widgetConf.id;
+    const draw = () => {
+      if (UI.editing || UI.dragging){ UI.dirty = true; return; }
+      host.innerHTML = '';
+      const section = U.el('div', { class:'section' });
+      section.appendChild(U.el('div', { class:'section-title', text:'To Do List' }));
+
+      /* TODAY card */
+      const todayKey = U.activeDate();
+      const goals = Data.goals(todayKey);
+      const done = goals.filter(g => g.done).length;
+      const card = U.el('div', { class:'card gm-card' + (goals.length && done === goals.length ? ' gm-all-done' : '') });
+      const head = U.el('div', { class:'gm-head' });
+      const left = U.el('div');
+      left.appendChild(U.el('div', { class:'gm-eyebrow', id:'todayLabel', text:'Today — ' + U.formatDate(todayKey) }));
+      const prog = U.el('div', { class:'gm-progress-row' });
+      prog.appendChild(U.el('span', { class:'gm-progress-num', id:'gmProgressNum', text: String(done) }));
+      prog.appendChild(U.el('span', { class:'gm-progress-total', id:'gmProgressTotal', text:'/ ' + goals.length }));
+      prog.appendChild(U.el('span', { class:'gm-progress-label', id:'gmProgressLabel',
+        text: goals.length === 0 ? 'no goals yet' : (done === goals.length ? 'all done — solid day' : 'complete') }));
+      left.appendChild(prog);
+      head.appendChild(left);
+      const st = Data.streak();
+      head.appendChild(U.el('div', { class:'gm-streak' + (st.count > 0 ? ' gm-streak-active' : ''), id:'gmStreak' },
+        U.el('span', { class:'gm-streak-bolt', text:'⚡' }),
+        U.el('span', { class:'gm-streak-num', id:'gmStreakNum', text: String(st.count) }),
+        U.el('span', { class:'gm-streak-lbl', text:'day streak' })));
+      card.appendChild(head);
+      const bar = U.el('div', { class:'gm-bar', id:'gmBar' });
+      for (const g of goals) bar.appendChild(U.el('div', { class:'gm-bar-seg' + (g.done ? ' gm-bar-seg-done' : '') }));
+      card.appendChild(bar);
+      const list = U.el('ul', { class:'goal-list gm-list', id:'goalList' });
+      const empty = U.el('div', { class:'empty-state', id:'emptyState', text:'No goals for today yet — add one below.' });
+      card.appendChild(list); card.appendChild(empty);
+      renderListInto(goals, list, empty, { key: todayKey, readOnly:false, showDomainDot:true, list:'goals', widgetId });
+      if (goals.some(g => !g.done)){
+        const push = U.el('button', { class:'gm-push-btn', id:'gmPushBtn', text:'Push remaining to tomorrow →' });
+        push.addEventListener('click', () => {
+          const n = goals.filter(g => !g.done).length;
+          if (confirm('Move ' + n + ' unfinished goal' + (n>1?'s':'') + ' to tomorrow?')) Data.pushRemaining();
+        });
+        card.appendChild(push);
+      }
+      const inWrap = U.el('div', { class:'goal-input-wrap gm-input-wrap' });
+      const input = U.el('input', { class:'goal-input', id:'goalInput', placeholder:'Add a goal for today…' });
+      const domSel = U.el('select', { class:'set-input', title:'Domain' });
+      domSel.appendChild(U.el('option', { value:'', text:'— domain —' }));
+      for (const d of Config.get().domains) domSel.appendChild(U.el('option', { value:d.id, text:d.name }));
+      const addBtn = U.el('button', { class:'btn-primary', id:'goalAddBtn', text:'+ Add' });
+      const polishBtn = U.el('button', { class:'btn-glass', id:'goalPolishBtn', text:'✨ Polish' });
+      inWrap.appendChild(input); inWrap.appendChild(domSel); inWrap.appendChild(addBtn); inWrap.appendChild(polishBtn);
+      card.appendChild(inWrap);
+      const status = U.el('div', { class:'polish-status', id:'polishStatus' });
+      card.appendChild(status);
+      makeAddHandlers(input, addBtn, polishBtn, () => U.activeDate(), status, { get domain(){ return domSel.value || undefined; } });
+      section.appendChild(card);
+
+      /* PLAN TOMORROW card */
+      const tmrKey = U.tomorrowDate();
+      const tmrGoals = Data.goals(tmrKey);
+      const tcard = U.el('div', { class:'card gm-card gm-card-tomorrow' });
+      const thead = U.el('div', { class:'gm-head' });
+      const tleft = U.el('div');
+      tleft.appendChild(U.el('div', { class:'gm-eyebrow', id:'tomorrowLabel', text:'Plan tomorrow — ' + U.formatDate(tmrKey) }));
+      tleft.appendChild(U.el('div', { class:'gm-sub', text:'Write tonight, locked until ' + Config.get().dayBoundaryHour + ' AM.' }));
+      thead.appendChild(tleft);
+      thead.appendChild(U.el('div', { class:'gm-tmr-count', id:'gmTomorrowCount', text: tmrGoals.length + ' planned' }));
+      tcard.appendChild(thead);
+      const tlist = U.el('ul', { class:'goal-list gm-list' });
+      const tempty = U.el('div', { class:'empty-state', text:'Nothing planned for tomorrow yet' });
+      tcard.appendChild(tlist); tcard.appendChild(tempty);
+      renderListInto(tmrGoals, tlist, tempty, { key: tmrKey, readOnly:true, showDomainDot:true, list:'goals', widgetId: widgetId + '_tmr' });
+      const tWrap = U.el('div', { class:'goal-input-wrap' });
+      const tInput = U.el('input', { class:'goal-input', id:'tomorrowInput', placeholder:'Add a goal for tomorrow…' });
+      const tDomSel = U.el('select', { class:'set-input', title:'Domain' });
+      tDomSel.appendChild(U.el('option', { value:'', text:'— domain —' }));
+      for (const d of Config.get().domains) tDomSel.appendChild(U.el('option', { value:d.id, text:d.name }));
+      const tAdd = U.el('button', { class:'btn-primary', id:'tomorrowAddBtn', text:'+ Add' });
+      const tPolish = U.el('button', { class:'btn-glass', id:'tomorrowPolishBtn', text:'✨ Polish' });
+      tWrap.appendChild(tInput); tWrap.appendChild(tDomSel); tWrap.appendChild(tAdd); tWrap.appendChild(tPolish);
+      tcard.appendChild(tWrap);
+      const tStatus = U.el('div', { class:'polish-status', id:'tomorrowStatus' });
+      tcard.appendChild(tStatus);
+      makeAddHandlers(tInput, tAdd, tPolish, () => U.tomorrowDate(), tStatus, { get domain(){ return tDomSel.value || undefined; } });
+      section.appendChild(tcard);
+      host.appendChild(section);
+    };
+    draw();
+    return { update: draw };
+  },
+});
+
+/* ---------- SVG chart helpers ---------- */
+function svgEl(tag, attrs){
+  const n = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k,v] of Object.entries(attrs||{})) n.setAttribute(k, v);
+  return n;
+}
+function polar(cx, cy, r, angDeg){ const a = (angDeg - 90) * Math.PI/180; return [cx + r*Math.cos(a), cy + r*Math.sin(a)]; }
+function donutSeg(cx, cy, rO, rI, a0, a1){
+  const large = (a1 - a0) > 180 ? 1 : 0;
+  const [x0o,y0o] = polar(cx,cy,rO,a0), [x1o,y1o] = polar(cx,cy,rO,a1);
+  const [x1i,y1i] = polar(cx,cy,rI,a1), [x0i,y0i] = polar(cx,cy,rI,a0);
+  return `M ${x0o} ${y0o} A ${rO} ${rO} 0 ${large} 1 ${x1o} ${y1o} L ${x1i} ${y1i} A ${rI} ${rI} 0 ${large} 0 ${x0i} ${y0i} Z`;
+}
+function chartToggle(host, options, current, onPick){
+  const bar = U.el('div', { class:'chart-toggle' });
+  for (const opt of options){
+    const b = U.el('button', { class:'chart-toggle-btn' + (opt === current ? ' is-on' : ''), text: opt });
+    b.addEventListener('click', () => onPick(opt));
+    bar.appendChild(b);
+  }
+  host.appendChild(bar);
+}
+function last7(){
+  const hist = Data.history(), active = U.activeDate(), out = [];
+  for (let i = 6; i >= 1; i--){
+    const dd = U.parseDstr(active); dd.setDate(dd.getDate() - i);
+    const key = U.dstr(dd); const h = hist[key];
+    out.push({ date: key, pct: h && h.t ? h.d/h.t : null, label: U.parseDstr(key).toLocaleDateString('en-US',{weekday:'short'})[0] });
+  }
+  const tg = Data.todayGoals();
+  out.push({ date: active, pct: tg.length ? tg.filter(g=>g.done).length/tg.length : null, label: 'T' });
+  return out;
+}
+
+/* ---------- widget: trendChart ---------- */
+Widgets.register('trendChart', {
+  label:'7-day trend', defaultSpan:2, allowedTabs:['stats','today'], updatesOn:['goals-changed','date-rolled'],
+  render(host, ctx){
+    host.classList.add('card');
+    const getType = () => (ctx.widgetConf.opts && ctx.widgetConf.opts.chartType) || 'bars';
+    const setType = t => Config.update(c => { const w = c.widgets.find(x => x.id === ctx.widgetConf.id); w.opts = w.opts || {}; w.opts.chartType = t; });
+    const draw = () => {
+      host.innerHTML = '';
+      const head = U.el('div', { class:'chart-head' });
+      head.appendChild(U.el('div', { class:'chart-title', text:'7-day completion' }));
+      chartToggle(head, ['bars','line'], getType(), setType);
+      host.appendChild(head);
+      const data = last7();
+      const W = 300, H = 120, pad = 18, bw = (W - pad*2) / data.length;
+      const svg = svgEl('svg', { viewBox:`0 0 ${W} ${H}`, class:'chart-svg', preserveAspectRatio:'none' });
+      const y = pct => H - pad - (pct) * (H - pad*2);
+      [0,0.5,1].forEach(g => svg.appendChild(svgEl('line', { x1:pad, x2:W-pad, y1:y(g), y2:y(g), stroke:'var(--hairline)', 'stroke-width':1 })));
+      const accent = '#3987e5';
+      if (getType() === 'bars'){
+        data.forEach((d,i) => {
+          const cx = pad + bw*i + bw/2;
+          if (d.pct === null){ svg.appendChild(svgEl('circle', { cx, cy:y(0), r:1.5, fill:'var(--text-tertiary)' })); }
+          else {
+            const barH = Math.max(2, (H - pad - y(d.pct)));
+            svg.appendChild(svgEl('rect', { x: cx - bw*0.3, y: y(d.pct), width: bw*0.6, height: barH, rx:3, fill: accent, opacity: d.date===U.activeDate()?1:0.7 }));
+          }
+          svg.appendChild(svgEl('text', { x:cx, y:H-4, 'text-anchor':'middle', class:'chart-lbl', fill:'var(--text-tertiary)' })).textContent = d.label;
+        });
+      } else {
+        const pts = data.map((d,i) => [pad + bw*i + bw/2, d.pct===null?null:y(d.pct)]);
+        let path = '', started = false;
+        pts.forEach(([x,yy]) => { if (yy===null){ started=false; return;} path += (started?' L':'M') + x + ' ' + yy; started=true; });
+        if (path) svg.appendChild(svgEl('path', { d:path, fill:'none', stroke:accent, 'stroke-width':2, 'stroke-linecap':'round', 'stroke-linejoin':'round' }));
+        pts.forEach(([x,yy],i) => { if (yy!==null) svg.appendChild(svgEl('circle', { cx:x, cy:yy, r:3.5, fill:accent })); svg.appendChild(svgEl('text',{x, y:H-4,'text-anchor':'middle',class:'chart-lbl',fill:'var(--text-tertiary)'})).textContent = data[i].label; });
+      }
+      host.appendChild(svg);
+      const nums = data.filter(d => d.pct!==null);
+      host.appendChild(U.el('div', { class:'chart-foot', text: nums.length ? Math.round(nums.reduce((a,b)=>a+b.pct,0)/nums.length*100) + '% avg · last 7 days' : 'No history yet — complete some goals.' }));
+    };
+    draw();
+    return { update: draw };
+  },
+});
+
+/* ---------- widget: distChart (domain distribution) ---------- */
+Widgets.register('distChart', {
+  label:'Domain split', defaultSpan:1, allowedTabs:['stats','today'], updatesOn:['goals-changed','date-rolled'],
+  render(host, ctx){
+    host.classList.add('card');
+    const getType = () => (ctx.widgetConf.opts && ctx.widgetConf.opts.chartType) || 'donut';
+    const setType = t => Config.update(c => { const w = c.widgets.find(x => x.id === ctx.widgetConf.id); w.opts = w.opts || {}; w.opts.chartType = t; });
+    const draw = () => {
+      host.innerHTML = '';
+      const head = U.el('div', { class:'chart-head' });
+      head.appendChild(U.el('div', { class:'chart-title', text:'Open by domain' }));
+      chartToggle(head, ['donut','pie','bars'], getType(), setType);
+      host.appendChild(head);
+      const goals = Data.todayGoals().filter(g => !g.done);
+      const counts = {};
+      for (const g of goals){ const k = g.domain || '_none'; counts[k] = (counts[k]||0)+1; }
+      const entries = Object.entries(counts).map(([id,n]) => {
+        const dom = id === '_none' ? { name:'Untagged', color:'#76746E' } : (Config.domain(id) || { name:id, color:'#76746E' });
+        return { id, name: dom.name, color: dom.color, n };
+      }).sort((a,b) => b.n - a.n);
+      const total = goals.length;
+      if (!total){ host.appendChild(U.el('div', { class:'chart-foot', text:'No open tasks — all clear.' })); return; }
+      const type = getType();
+      if (type === 'bars'){
+        const wrap = U.el('div', { class:'dist-bars' });
+        for (const e of entries){
+          const rowb = U.el('div', { class:'dist-bar-row' });
+          rowb.appendChild(U.el('span', { class:'legend-swatch', style:'background:'+e.color }));
+          rowb.appendChild(U.el('span', { class:'dist-bar-name', text: e.name }));
+          const track = U.el('div', { class:'dist-bar-track' });
+          track.appendChild(U.el('div', { class:'dist-bar-fill', style:'width:'+(e.n/total*100)+'%;background:'+e.color }));
+          rowb.appendChild(track);
+          rowb.appendChild(U.el('span', { class:'dist-bar-n', text: String(e.n) }));
+          wrap.appendChild(rowb);
+        }
+        host.appendChild(wrap);
+      } else {
+        const S = 150, cx = S/2, cy = S/2, rO = 62, rI = type==='donut' ? 38 : 0;
+        const svg = svgEl('svg', { viewBox:`0 0 ${S} ${S}`, class:'chart-svg-sq' });
+        let ang = 0;
+        if (entries.length === 1){
+          svg.appendChild(svgEl('circle', { cx, cy, r:(rO+rI)/2, fill:'none', stroke:entries[0].color, 'stroke-width': rO-rI || rO }));
+          if (type==='donut'){ const c2 = svgEl('circle', { cx, cy, r:rO, fill:'none', stroke:entries[0].color, 'stroke-width':0 }); }
+        } else {
+          for (const e of entries){
+            const a1 = ang + e.n/total*360;
+            svg.appendChild(svgEl('path', { d: donutSeg(cx,cy,rO,rI,ang,a1 - 1.2), fill: e.color }));
+            ang = a1;
+          }
+        }
+        if (type==='donut'){ svg.appendChild(svgEl('text', { x:cx, y:cy-2, 'text-anchor':'middle', class:'donut-center' })).textContent = String(total); svg.appendChild(svgEl('text', { x:cx, y:cy+13, 'text-anchor':'middle', class:'donut-sub' })).textContent = 'open'; }
+        host.appendChild(svg);
+      }
+      const legend = U.el('div', { class:'legend' });
+      for (const e of entries){
+        legend.appendChild(U.el('div', { class:'legend-item' },
+          U.el('span', { class:'legend-swatch', style:'background:'+e.color }),
+          U.el('span', { text: e.name + ' · ' + e.n })));
+      }
+      host.appendChild(legend);
+    };
+    draw();
+    return { update: draw };
+  },
+});
+
+/* ---------- widget: domainRings (all domains, stats) ---------- */
+Widgets.register('domainRings', {
+  label:'Domain rings', defaultSpan:3, allowedTabs:['stats'], updatesOn:['goals-changed','date-rolled'],
+  render(host){
+    host.classList.add('card');
+    const draw = () => {
+      host.innerHTML = '';
+      host.appendChild(U.el('div', { class:'chart-title', text:'Today by domain' }));
+      const goals = Data.todayGoals();
+      const wrap = U.el('div', { class:'ring-strip' });
+      for (const dom of Config.get().domains){
+        const dg = goals.filter(g => g.domain === dom.id);
+        const done = dg.filter(g => g.done).length;
+        const pct = dg.length ? done/dg.length : 0;
+        wrap.appendChild(miniRing(dom.name, dom.color, pct, dg.length ? done+'/'+dg.length : '—'));
+      }
+      host.appendChild(wrap);
+    };
+    draw();
+    return { update: draw };
+  },
+});
+function miniRing(name, color, pct, sub){
+  const C = 2*Math.PI*26;
+  const cell = U.el('div', { class:'mini-ring' });
+  const svg = svgEl('svg', { viewBox:'0 0 64 64', class:'mini-ring-svg' });
+  svg.appendChild(svgEl('circle', { cx:32, cy:32, r:26, fill:'none', stroke:'rgba(255,255,255,0.07)', 'stroke-width':6 }));
+  svg.appendChild(svgEl('circle', { cx:32, cy:32, r:26, fill:'none', stroke:color, 'stroke-width':6, 'stroke-linecap':'round', transform:'rotate(-90 32 32)', 'stroke-dasharray':C, 'stroke-dashoffset': C*(1-pct) }));
+  const t = svgEl('text', { x:32, y:36, 'text-anchor':'middle', class:'mini-ring-pct' }); t.textContent = Math.round(pct*100)+'%';
+  svg.appendChild(t);
+  cell.appendChild(svg);
+  cell.appendChild(U.el('div', { class:'mini-ring-name', text: name }));
+  cell.appendChild(U.el('div', { class:'mini-ring-sub', text: sub }));
+  return cell;
+}
+
+/* ---------- widget: heatmap ---------- */
+Widgets.register('heatmap', {
+  label:'Consistency heatmap', defaultSpan:3, allowedTabs:['stats'], updatesOn:['goals-changed','date-rolled'],
+  render(host){
+    host.classList.add('card');
+    const draw = () => {
+      host.innerHTML = '';
+      host.appendChild(U.el('div', { class:'chart-title', text:'Consistency — last 10 weeks' }));
+      const hist = Data.history();
+      const active = U.activeDate();
+      const tg = Data.todayGoals();
+      const todayRatio = tg.length ? tg.filter(g=>g.done).length/tg.length : null;
+      const end = U.parseDstr(active);
+      const start = new Date(end); start.setDate(start.getDate() - (9*7 + end.getDay()));
+      const grid = U.el('div', { class:'heat-grid' });
+      const cur = new Date(start);
+      let col = U.el('div', { class:'heat-col' });
+      while (cur <= end){
+        const key = U.dstr(cur);
+        let ratio = null;
+        if (key === active) ratio = todayRatio;
+        else if (hist[key]) ratio = hist[key].t ? hist[key].d/hist[key].t : (hist[key].t===0 ? -1 : null);
+        const cell = U.el('div', { class:'heat-cell', title: key + (ratio===null||ratio<0 ? ' · no data' : ' · ' + Math.round(ratio*100)+'%'), style:'background:'+heatShade(ratio) });
+        col.appendChild(cell);
+        if (cur.getDay() === 6){ grid.appendChild(col); col = U.el('div', { class:'heat-col' }); }
+        cur.setDate(cur.getDate()+1);
+      }
+      if (col.childNodes.length) grid.appendChild(col);
+      host.appendChild(grid);
+      const leg = U.el('div', { class:'heat-legend' });
+      leg.appendChild(U.el('span', { text:'less' }));
+      [0.01,0.34,0.67,1].forEach(r => leg.appendChild(U.el('span', { class:'heat-cell', style:'background:'+heatShade(r) })));
+      leg.appendChild(U.el('span', { text:'more' }));
+      host.appendChild(leg);
+    };
+    draw();
+    return { update: draw };
+  },
+});
+function heatShade(ratio){
+  if (ratio === null) return 'rgba(255,255,255,0.05)';
+  if (ratio < 0) return 'rgba(255,255,255,0.05)';       // empty day, no goals
+  if (ratio === 0) return 'rgba(255,107,107,0.16)';     // had goals, none done
+  const a = 0.25 + ratio*0.65;
+  return 'rgba(107,227,164,'+a.toFixed(2)+')';
+}
+
+/* ---------- widget: trackers ---------- */
+Widgets.register('trackers', {
+  label:'Habit trackers', defaultSpan:3, allowedTabs:['today','stats'], updatesOn:['goals-changed','date-rolled'],
+  render(host){
+    host.classList.add('card');
+    const draw = () => {
+      host.innerHTML = '';
+      const head = U.el('div', { class:'chart-head' });
+      head.appendChild(U.el('div', { class:'chart-title', text:'Trackers' }));
+      head.appendChild(U.el('button', { class:'btn-glass set-mini', text:'+ tracker', onclick: () => { openSettings(); setTimeout(() => { const a = document.getElementById('addTrackerInput'); if (a) a.focus(); }, 30); } }));
+      host.appendChild(head);
+      const trackers = Config.get().trackers;
+      if (!trackers.length){ host.appendChild(U.el('div', { class:'chart-foot', text:'No trackers yet — add a daily habit to track (e.g. Read 20 min).' })); return; }
+      const active = U.activeDate();
+      const marks = Data.trackerMarks();
+      for (const tr of trackers){
+        const rowt = U.el('div', { class:'tracker-row' });
+        const on = !!(marks[active] && marks[active][tr.id]);
+        const cb = U.el('button', { class:'tracker-check' + (on ? ' is-on' : ''), title:'Mark done today' }, on ? '✓' : '');
+        cb.addEventListener('click', () => Data.markTracker(active, tr.id, !on));
+        rowt.appendChild(cb);
+        const info = U.el('div', { class:'tracker-info' });
+        info.appendChild(U.el('div', { class:'tracker-name', text: tr.name }));
+        info.appendChild(U.el('div', { class:'tracker-streak', text: trackerStreak(tr.id) + ' day streak' }));
+        rowt.appendChild(info);
+        const mini = U.el('div', { class:'tracker-mini' });
+        const end = U.parseDstr(active);
+        for (let i = 20; i >= 0; i--){
+          const dd = new Date(end); dd.setDate(dd.getDate()-i);
+          const key = U.dstr(dd);
+          mini.appendChild(U.el('span', { class:'tracker-dot' + (trackerOn(key, tr.id) ? ' is-on' : ''), title: key }));
+        }
+        rowt.appendChild(mini);
+        host.appendChild(rowt);
+      }
+    };
+    draw();
+    return { update: draw };
+  },
+});
+function trackerOn(dstr, id){
+  const marks = Data.trackerMarks();
+  if (marks[dstr]) return !!marks[dstr][id];
+  const hist = Data.history();
+  return !!(hist[dstr] && hist[dstr].trackers && hist[dstr].trackers[id]);
+}
+function trackerStreak(id){
+  let n = 0; const d = U.parseDstr(U.activeDate());
+  while (trackerOn(U.dstr(d), id)){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+
+/* ---------- domain widgets ---------- */
+Widgets.register('domainToday', {
+  label:'Domain — today', defaultSpan:2, allowedTabs:['domain'], updatesOn:['goals-changed','date-rolled'],
+  render(host, ctx){
+    host.classList.add('card');
+    const domId = ctx.domainId;
+    const draw = () => {
+      if (UI.editing || UI.dragging){ UI.dirty = true; return; }
+      host.innerHTML = '';
+      const dom = Config.domain(domId);
+      host.appendChild(U.el('div', { class:'gm-eyebrow', text: (dom?dom.name:domId) + ' — today' }));
+      const key = U.activeDate();
+      const goals = Data.goals(key).filter(g => g.domain === domId);
+      const list = U.el('ul', { class:'goal-list' });
+      const empty = U.el('div', { class:'empty-state', text:'Nothing for '+(dom?dom.name:domId)+' today. Add one or pull from the backlog below.' });
+      host.appendChild(list); host.appendChild(empty);
+      renderListInto(goals, list, empty, { key, readOnly:false, showDomainDot:false, list:'goals', widgetId: ctx.widgetConf.id });
+      const inWrap = U.el('div', { class:'goal-input-wrap' });
+      const input = U.el('input', { class:'goal-input', placeholder:'Add to '+(dom?dom.name:domId)+' today…' });
+      const addBtn = U.el('button', { class:'btn-primary', text:'+ Add' });
+      inWrap.appendChild(input); inWrap.appendChild(addBtn);
+      host.appendChild(inWrap);
+      const status = U.el('div', { class:'polish-status' });
+      host.appendChild(status);
+      makeAddHandlers(input, addBtn, null, () => U.activeDate(), status, { domain: domId });
+    };
+    draw();
+    return { update: draw };
+  },
+});
+Widgets.register('domainRing', {
+  label:'Domain — ring', defaultSpan:1, allowedTabs:['domain'], updatesOn:['goals-changed','date-rolled'],
+  render(host, ctx){
+    host.classList.add('card');
+    const domId = ctx.domainId;
+    const draw = () => {
+      host.innerHTML = '';
+      const dom = Config.domain(domId) || { name:domId, color:'#76746E' };
+      const goals = Data.todayGoals().filter(g => g.domain === domId);
+      const done = goals.filter(g => g.done).length;
+      const pct = goals.length ? done/goals.length : 0;
+      const wrap = U.el('div', { class:'domain-ring-wrap' });
+      wrap.appendChild(miniRing(dom.name, dom.color, pct, goals.length ? done+' / '+goals.length+' today' : 'nothing today'));
+      host.appendChild(wrap);
+    };
+    draw();
+    return { update: draw };
+  },
+});
+Widgets.register('domainBacklog', {
+  label:'Domain — backlog', defaultSpan:3, allowedTabs:['domain'], updatesOn:['goals-changed','date-rolled'],
+  render(host, ctx){
+    host.classList.add('card');
+    const domId = ctx.domainId;
+    const draw = () => {
+      if (UI.editing || UI.dragging){ UI.dirty = true; return; }
+      host.innerHTML = '';
+      host.appendChild(U.el('div', { class:'section-title', text:'Backlog' }));
+      const items = Data.backlogFor(domId);
+      const list = U.el('ul', { class:'goal-list' });
+      const empty = U.el('div', { class:'empty-state', text:'Backlog empty. Park future tasks here; send them to Today when ready.' });
+      host.appendChild(list); host.appendChild(empty);
+      renderListInto(items, list, empty, { domainId: domId, readOnly:false, showDomainDot:false, list:'backlog', widgetId: ctx.widgetConf.id });
+      const inWrap = U.el('div', { class:'goal-input-wrap' });
+      const input = U.el('input', { class:'goal-input', placeholder:'Add to backlog…' });
+      const addBtn = U.el('button', { class:'btn-glass', text:'+ Backlog' });
+      inWrap.appendChild(input); inWrap.appendChild(addBtn);
+      host.appendChild(inWrap);
+      const status = U.el('div', { class:'polish-status' });
+      host.appendChild(status);
+      makeAddHandlers(input, addBtn, null, () => U.activeDate(), status, { backlogDomain: domId });
+    };
+    draw();
+    return { update: draw };
+  },
+});
+
+/* ================= Render ================= */
+const Render = (function(){
+  let live = [];
+  function tabBar(){
+    const bar = document.getElementById('tabBar');
+    bar.innerHTML = '';
+    for (const tab of Config.get().tabs){
+      const dom = tab.kind === 'domain' ? Config.domain(tab.domainId) : null;
+      const label = tab.kind === 'domain' ? (dom ? dom.name : tab.label) : tab.label;
+      const btn = U.el('button', { class:'tab-btn' + (UI.activeTab === tab.id ? ' is-active' : ''), 'data-tab': tab.id });
+      if (dom) btn.appendChild(U.el('span', { class:'tab-dot', style:'--dot:' + dom.color }));
+      btn.appendChild(document.createTextNode(label));
+      btn.addEventListener('click', () => { UI.activeTab = tab.id; Render.all(); });
+      bar.appendChild(btn);
+    }
+  }
+  function grid(){
+    const hostEl = document.getElementById('tabHost');
+    hostEl.innerHTML = '';
+    live = [];
+    const tabs = Config.get().tabs;
+    const tab = tabs.find(t => t.id === UI.activeTab) || tabs[0];
+    if (!tab) return;
+    UI.activeTab = tab.id;
+    const g = U.el('div', { class:'widget-grid' });
+    const widgets = Config.get().widgets
+      .filter(w => w.tab === tab.id && w.visible)
+      .sort((a,b) => a.order - b.order);
+    for (const conf of widgets){
+      const def = Widgets.get(conf.type);
+      if (!def) continue;
+      const host = U.el('div', { class:'col-span-' + (conf.span || def.defaultSpan || 3), 'data-widget': conf.id });
+      g.appendChild(host);
+      const ctx = { config: Config.get(), widgetConf: conf, domainId: conf.domainId };
+      let instance = null;
+      try { instance = def.render(host, ctx) || {}; }
+      catch(e){ host.textContent = ''; host.appendChild(U.el('div', { class:'card', text: conf.type + ' failed to render.' })); console.error(conf.type, e); }
+      live.push({ conf, def, instance });
+    }
+    hostEl.appendChild(g);
+  }
+  function dispatch(ev){
+    for (const { conf, def, instance } of live){
+      if (!def.updatesOn || !def.updatesOn.includes(ev.type)) continue;
+      if (instance && instance.update){
+        try { instance.update(ev); } catch(e){ console.error(conf.type, e); }
+      }
+    }
+  }
+  return { all(){ tabBar(); grid(); }, dispatch };
+})();
+['goals-changed','tick-5s','tick-60s','date-rolled'].forEach(name =>
+  document.addEventListener(name, ev => Render.dispatch(ev)));
+document.addEventListener('config-changed', () => { Config.applyTheme(); Render.all(); });
+
+/* ================= Settings modal ================= */
+function openSettings(){
+  const body = document.getElementById('settingsBody');
+  body.innerHTML = '';
+  buildSettings(body);
+  document.getElementById('settingsModal').classList.add('is-open');
+}
+function closeSettings(){ document.getElementById('settingsModal').classList.remove('is-open'); }
+function rerenderSettings(){
+  const m = document.getElementById('settingsModal');
+  if (m.classList.contains('is-open')) openSettings();
+}
+function buildSettings(body){
+  const cfg = Config.get();
+  const section = (title) => {
+    const s = U.el('div', { class:'set-section' });
+    s.appendChild(U.el('div', { class:'set-h', text: title }));
+    body.appendChild(s);
+    return s;
+  };
+  const row = (parent, labelText, ...controls) => {
+    const r = U.el('div', { class:'set-row' });
+    if (labelText !== null) r.appendChild(U.el('label', { text: labelText }));
+    for (const c of controls) r.appendChild(c);
+    parent.appendChild(r);
+    return r;
+  };
+
+  /* General */
+  const gen = section('General');
+  const titleIn = U.el('input', { class:'set-input', value: cfg.title, style:'flex:1' });
+  titleIn.addEventListener('change', () => Config.update(c => { c.title = titleIn.value.trim() || 'My Dashboard'; }));
+  row(gen, 'Dashboard title', titleIn);
+  const wakeIn = U.el('input', { class:'set-input', type:'number', min:'0', max:'23', value: cfg.hours.wake });
+  const sleepIn = U.el('input', { class:'set-input', type:'number', min:'1', max:'24', value: cfg.hours.sleep });
+  const applyHours = () => Config.update(c => {
+    const w = Math.max(0, Math.min(23, parseInt(wakeIn.value,10) || 8));
+    const s = Math.max(w + 1, Math.min(24, parseInt(sleepIn.value,10) || 24));
+    c.hours = { wake: w, sleep: s };
+  });
+  wakeIn.addEventListener('change', applyHours); sleepIn.addEventListener('change', applyHours);
+  row(gen, 'Awake window', wakeIn, U.el('span', { text:'to' }), sleepIn, U.el('span', { class:'set-note', text:'(24 = midnight)' }));
+  const boundIn = U.el('input', { class:'set-input', type:'number', min:'0', max:'12', value: cfg.dayBoundaryHour });
+  boundIn.addEventListener('change', () => Config.update(c => { c.dayBoundaryHour = Math.max(0, Math.min(12, parseInt(boundIn.value,10) || 6)); }));
+  row(gen, 'Day starts at (AM)', boundIn, U.el('span', { class:'set-note', text:'before this hour still counts as yesterday' }));
+
+  settingsAppearance(body);
+  settingsDomains(body);
+  settingsTrackers(body);
+  settingsTabsWidgets(body);
+
+  /* Data */
+  const data = section('Data');
+  const exp = U.el('button', { class:'btn-glass set-mini', text:'Export JSON' });
+  exp.addEventListener('click', () => {
+    const dump = { exported: new Date().toISOString(), settings: Store.get(K.settings), data: {} };
+    for (const key of [K.streak, K.backlog, K.history, K.trackerMarks, K.seedSeen]) dump.data[key] = Store.get(key);
+    for (const key of Store.listKeys(K.goalsPrefix)) dump.data[key] = Store.get(key);
+    const blob = new Blob([JSON.stringify(dump, null, 2)], { type:'application/json' });
+    const a = U.el('a', { href: URL.createObjectURL(blob), download:'dashboard-backup-' + U.activeDate() + '.json' });
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+  const impInput = U.el('input', { type:'file', accept:'.json', style:'display:none' });
+  const imp = U.el('button', { class:'btn-glass set-mini', text:'Import JSON' });
+  imp.addEventListener('click', () => impInput.click());
+  impInput.addEventListener('change', () => {
+    const f = impInput.files[0]; if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const dump = JSON.parse(reader.result);
+        if (!dump || !dump.settings) throw new Error('bad file');
+        if (!confirm('Import will replace current dashboard data. Continue?')) return;
+        Store.set(K.settings, dump.settings);
+        for (const [k, v] of Object.entries(dump.data || {})) if (v !== null) Store.set(k, v);
+        location.reload();
+      } catch(e){ U.banner('Import failed — not a valid dashboard backup.'); }
+    };
+    reader.readAsText(f);
+  });
+  const clr = U.el('button', { class:'btn-danger-ghost set-mini', text:'Clear all data…' });
+  clr.addEventListener('click', () => {
+    if (!confirm('Delete ALL dashboard data (tasks, history, settings)? Export first if unsure.')) return;
+    if (!confirm('Really sure? This cannot be undone.')) return;
+    const keys = [K.settings, K.streak, K.backlog, K.history, K.trackerMarks, K.seedSeen, ...Store.listKeys(K.goalsPrefix)];
+    for (const k of keys) Store.del(k);
+    location.reload();
+  });
+  row(data, null, exp, imp, clr);
+  data.appendChild(U.el('div', { class:'set-note', text:'Backups include tasks, history, streak, trackers, and settings. localStorage lives in this browser — export periodically.' }));
+  body.appendChild(U.el('div', { class:'set-note', text:'Domain colors default to a colorblind-validated set. “Reset colors” in Domains restores it.' }));
+}
+/* ---- settings section helpers ---- */
+function setSection(body, title){ const s = U.el('div', { class:'set-section' }); s.appendChild(U.el('div', { class:'set-h', text: title })); body.appendChild(s); return s; }
+function setRow(parent, labelText, ...controls){ const r = U.el('div', { class:'set-row' }); if (labelText !== null) r.appendChild(U.el('label', { text: labelText })); for (const c of controls) r.appendChild(c); parent.appendChild(r); return r; }
+function slugify(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || ('d' + U.uid()); }
+const OVERRIDE_KEYS = [['bg','Background'],['primary','Text'],['secondary','Text 2'],['tertiary','Text muted'],['success','Success'],['warning','Warning'],['danger','Danger'],['washA','Glow warm'],['washB','Glow cool']];
+const DEFAULT_HEX = { bg:'#050506', primary:'#FAFAFA', secondary:'#B8B6B0', tertiary:'#76746E', success:'#6BE3A4', warning:'#F2C063', danger:'#FF6B6B', washA:'#e07658', washB:'#b4b4c8' };
+
+function settingsAppearance(body){
+  const cfg = Config.get();
+  const s = setSection(body, 'Appearance');
+  const fontSel = U.el('select', { class:'set-input' });
+  for (const [v,l] of [['system','System'],['mono','Mono'],['serif','Serif'],['rounded','Rounded'],['custom','Custom…']]) fontSel.appendChild(U.el('option', { value:v, text:l, ...(cfg.theme.fontChoice===v?{selected:true}:{}) }));
+  const customStack = U.el('input', { class:'set-input', placeholder:'font-family stack', value: cfg.theme.customStack, style:'flex:1;'+(cfg.theme.fontChoice==='custom'?'':'display:none') });
+  fontSel.addEventListener('change', () => { customStack.style.display = fontSel.value==='custom'?'':'none'; Config.update(c => { c.theme.fontChoice = fontSel.value; }); });
+  customStack.addEventListener('change', () => Config.update(c => { c.theme.customStack = customStack.value; }));
+  setRow(s, 'Font', fontSel, customStack);
+  const sizeIn = U.el('input', { class:'set-input', type:'number', min:'12', max:'20', value: cfg.theme.baseSize });
+  sizeIn.addEventListener('change', () => Config.update(c => { c.theme.baseSize = Math.max(12, Math.min(20, parseInt(sizeIn.value,10)||15)); }));
+  setRow(s, 'Base text size', sizeIn, U.el('span', { class:'set-note', text:'px' }));
+  const colorWrap = U.el('div', { class:'set-chiprow' });
+  for (const [key,label] of OVERRIDE_KEYS){
+    const cell = U.el('label', { class:'set-note', style:'display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0' });
+    const inp = U.el('input', { class:'set-input', type:'color', value: cfg.theme.overrides[key] || DEFAULT_HEX[key] });
+    inp.addEventListener('input', () => Config.update(c => { c.theme.overrides[key] = inp.value; }));
+    cell.appendChild(inp); cell.appendChild(document.createTextNode(label));
+    colorWrap.appendChild(cell);
+  }
+  setRow(s, 'Colors', colorWrap);
+  const reset = U.el('button', { class:'btn-glass set-mini', text:'Reset appearance' });
+  reset.addEventListener('click', () => Config.update(c => { c.theme.overrides = {}; c.theme.fontChoice='system'; c.theme.customStack=''; c.theme.baseSize=15; }));
+  setRow(s, null, reset);
+}
+
+function settingsDomains(body){
+  const cfg = Config.get();
+  const s = setSection(body, 'Domains');
+  cfg.domains.forEach((dom, i) => {
+    const r = U.el('div', { class:'set-list-row' });
+    const color = U.el('input', { class:'set-input', type:'color', value: dom.color });
+    color.addEventListener('input', () => Config.update(c => { c.domains[i].color = color.value; }));
+    const name = U.el('input', { class:'set-input grow', value: dom.name });
+    name.addEventListener('change', () => Config.update(c => { c.domains[i].name = name.value.trim() || dom.name; }));
+    const rm = U.el('button', { class:'set-x', title:'Remove domain', text:'×' });
+    rm.addEventListener('click', () => {
+      if (!confirm('Remove "'+dom.name+'"? Its tasks become untagged and its tab is removed.')) return;
+      Data.reassignDomain(dom.id, null);
+      Config.update(c => {
+        c.domains = c.domains.filter(d => d.id !== dom.id);
+        c.tabs = c.tabs.filter(t => t.domainId !== dom.id);
+        c.widgets = c.widgets.filter(w => w.domainId !== dom.id);
+        if (UI.activeTab === 'tab_'+dom.id) UI.activeTab = 'today';
+      });
+      rerenderSettings();
+    });
+    r.appendChild(color); r.appendChild(name); r.appendChild(rm);
+    s.appendChild(r);
+  });
+  const addWrap = U.el('div', { class:'set-row' });
+  const addIn = U.el('input', { class:'set-input grow', placeholder:'New domain name…' });
+  const addBtn = U.el('button', { class:'btn-glass set-mini', text:'+ Add domain' });
+  const doAdd = () => {
+    const nm = addIn.value.trim(); if (!nm) return;
+    let id = slugify(nm); const existing = new Set(cfg.domains.map(d=>d.id));
+    while (existing.has(id)) id += '-' + Math.floor(Math.random()*9);
+    const palette = ['#3987e5','#d95926','#199e70','#c98500','#d55181','#9085e9','#5598e7','#e66767'];
+    const color = palette[cfg.domains.length % palette.length];
+    Config.update(c => {
+      c.domains.push({ id, name:nm, color });
+      const statsIdx = c.tabs.findIndex(t => t.kind==='stats');
+      const tab = { id:'tab_'+id, kind:'domain', domainId:id, label:nm };
+      if (statsIdx >= 0) c.tabs.splice(statsIdx, 0, tab); else c.tabs.push(tab);
+      c.widgets.push({ id:'w_'+U.uid(), type:'domainToday', tab:'tab_'+id, visible:true, order:0, span:2, domainId:id });
+      c.widgets.push({ id:'w_'+U.uid(), type:'domainRing', tab:'tab_'+id, visible:true, order:1, span:1, domainId:id });
+      c.widgets.push({ id:'w_'+U.uid(), type:'domainBacklog', tab:'tab_'+id, visible:true, order:2, span:3, domainId:id });
+    });
+    rerenderSettings();
+  };
+  addBtn.addEventListener('click', doAdd);
+  addIn.addEventListener('keydown', e => { if (e.key==='Enter') doAdd(); });
+  addWrap.appendChild(addIn); addWrap.appendChild(addBtn);
+  s.appendChild(addWrap);
+  const resetC = U.el('button', { class:'btn-glass set-mini', text:'Reset default colors' });
+  resetC.addEventListener('click', () => Config.update(c => { for (const d of c.domains) if (VALIDATED_COLORS[d.id]) d.color = VALIDATED_COLORS[d.id]; }));
+  setRow(s, null, resetC);
+}
+
+function settingsTrackers(body){
+  const cfg = Config.get();
+  const s = setSection(body, 'Habit trackers');
+  cfg.trackers.forEach((tr, i) => {
+    const r = U.el('div', { class:'set-list-row' });
+    const name = U.el('input', { class:'set-input grow', value: tr.name });
+    name.addEventListener('change', () => Config.update(c => { c.trackers[i].name = name.value.trim() || tr.name; }));
+    const rm = U.el('button', { class:'set-x', title:'Remove tracker', text:'×' });
+    rm.addEventListener('click', () => { if (!confirm('Remove tracker "'+tr.name+'"? Its history stays but it disappears from the dashboard.')) return; Config.update(c => { c.trackers = c.trackers.filter(t => t.id !== tr.id); }); rerenderSettings(); });
+    r.appendChild(name); r.appendChild(rm);
+    s.appendChild(r);
+  });
+  const addWrap = U.el('div', { class:'set-row' });
+  const addIn = U.el('input', { class:'set-input grow', id:'addTrackerInput', placeholder:'New tracker (e.g. Read 20 min)…' });
+  const addBtn = U.el('button', { class:'btn-glass set-mini', text:'+ Add tracker' });
+  const doAdd = () => { const nm = addIn.value.trim(); if (!nm) return; Config.update(c => { c.trackers.push({ id:'t_'+U.uid(), name:nm, createdAt: U.activeDate() }); }); rerenderSettings(); setTimeout(()=>{ const a=document.getElementById('addTrackerInput'); if(a) a.focus(); },20); };
+  addBtn.addEventListener('click', doAdd);
+  addIn.addEventListener('keydown', e => { if (e.key==='Enter') doAdd(); });
+  addWrap.appendChild(addIn); addWrap.appendChild(addBtn);
+  s.appendChild(addWrap);
+}
+
+function widgetAddableTo(def, tab){
+  if (!def.allowedTabs) return false;
+  if (def.allowedTabs.includes('domain')) return tab.kind === 'domain';
+  if (tab.kind === 'custom') return def.allowedTabs.some(t => t==='today' || t==='stats');
+  return def.allowedTabs.includes(tab.kind);
+}
+function settingsTabsWidgets(body){
+  const cfg = Config.get();
+  const s = setSection(body, 'Tabs & widgets');
+  cfg.tabs.forEach((tab, ti) => {
+    const dom = tab.kind==='domain' ? Config.domain(tab.domainId) : null;
+    const block = U.el('div', { class:'set-tab-block' });
+    const h = U.el('div', { class:'set-tab-block-h' });
+    const up = U.el('button', { text:'▲', title:'Move tab left' });
+    const down = U.el('button', { text:'▼', title:'Move tab right' });
+    up.addEventListener('click', () => { if (ti>0){ Config.update(c => { const a=c.tabs; [a[ti-1],a[ti]]=[a[ti],a[ti-1]]; }); rerenderSettings(); } });
+    down.addEventListener('click', () => { if (ti<cfg.tabs.length-1){ Config.update(c => { const a=c.tabs; [a[ti+1],a[ti]]=[a[ti],a[ti+1]]; }); rerenderSettings(); } });
+    const ud = U.el('span', { class:'set-updown' }, up, down);
+    h.appendChild(ud);
+    if (dom){ h.appendChild(U.el('span', { class:'tab-dot', style:'--dot:'+dom.color })); h.appendChild(U.el('span', { text: dom.name + ' (domain)' })); }
+    else {
+      const lbl = U.el('input', { class:'set-input grow', value: tab.label });
+      lbl.addEventListener('change', () => Config.update(c => { c.tabs[ti].label = lbl.value.trim() || tab.label; }));
+      h.appendChild(lbl);
+    }
+    if (tab.id !== 'today'){
+      const rm = U.el('button', { class:'set-x', title:'Remove tab', text:'×' });
+      rm.addEventListener('click', () => {
+        if (!confirm('Remove the "'+(dom?dom.name:tab.label)+'" tab? Its widgets are removed (tasks/data are kept).')) return;
+        Config.update(c => { c.tabs = c.tabs.filter(t => t.id !== tab.id); c.widgets = c.widgets.filter(w => w.tab !== tab.id); if (UI.activeTab===tab.id) UI.activeTab='today'; });
+        rerenderSettings();
+      });
+      h.appendChild(rm);
+    }
+    block.appendChild(h);
+    const widgets = cfg.widgets.filter(w => w.tab === tab.id).sort((a,b)=>a.order-b.order);
+    widgets.forEach((w, wi) => {
+      const def = Widgets.get(w.type);
+      const wr = U.el('div', { class:'set-widget-row' });
+      const vis = U.el('input', { type:'checkbox', ...(w.visible?{checked:true}:{}) });
+      vis.addEventListener('change', () => Config.update(c => { c.widgets.find(x=>x.id===w.id).visible = vis.checked; }));
+      wr.appendChild(vis);
+      wr.appendChild(U.el('span', { class:'grow', text: def ? def.label : w.type }));
+      const span = U.el('select', { class:'set-input', title:'Width' });
+      for (const sp of [1,2,3]) span.appendChild(U.el('option', { value:sp, text:sp+'-col', ...(w.span===sp?{selected:true}:{}) }));
+      span.addEventListener('change', () => Config.update(c => { c.widgets.find(x=>x.id===w.id).span = parseInt(span.value,10); }));
+      wr.appendChild(span);
+      const wup = U.el('button', { text:'▲' }), wdown = U.el('button', { text:'▼' });
+      wup.addEventListener('click', () => { if (wi>0){ Config.update(c => { const list=c.widgets.filter(x=>x.tab===tab.id).sort((a,b)=>a.order-b.order); const A=c.widgets.find(x=>x.id===list[wi].id), B=c.widgets.find(x=>x.id===list[wi-1].id); const t=A.order; A.order=B.order; B.order=t; }); rerenderSettings(); } });
+      wdown.addEventListener('click', () => { if (wi<widgets.length-1){ Config.update(c => { const list=c.widgets.filter(x=>x.tab===tab.id).sort((a,b)=>a.order-b.order); const A=c.widgets.find(x=>x.id===list[wi].id), B=c.widgets.find(x=>x.id===list[wi+1].id); const t=A.order; A.order=B.order; B.order=t; }); rerenderSettings(); } });
+      wr.appendChild(U.el('span', { class:'set-updown' }, wup, wdown));
+      const wx = U.el('button', { class:'set-x', text:'×', title:'Remove widget' });
+      wx.addEventListener('click', () => { Config.update(c => { c.widgets = c.widgets.filter(x => x.id !== w.id); }); rerenderSettings(); });
+      wr.appendChild(wx);
+      block.appendChild(wr);
+    });
+    const addable = Widgets.catalog().map(x => Widgets.get(x.type) && { type:x.type, def:Widgets.get(x.type), label:x.label }).filter(x => x && widgetAddableTo(x.def, tab));
+    if (addable.length){
+      const addSel = U.el('select', { class:'set-input' });
+      addSel.appendChild(U.el('option', { value:'', text:'+ add widget…' }));
+      for (const a of addable) addSel.appendChild(U.el('option', { value:a.type, text:a.label }));
+      addSel.addEventListener('change', () => {
+        if (!addSel.value) return;
+        const def = Widgets.get(addSel.value);
+        Config.update(c => {
+          const maxOrder = Math.max(-1, ...c.widgets.filter(x=>x.tab===tab.id).map(x=>x.order));
+          const nw = { id:'w_'+U.uid(), type:addSel.value, tab:tab.id, visible:true, order:maxOrder+1, span:def.defaultSpan||3 };
+          if (tab.kind==='domain') nw.domainId = tab.domainId;
+          c.widgets.push(nw);
+        });
+        rerenderSettings();
+      });
+      block.appendChild(addSel);
+    }
+    s.appendChild(block);
+  });
+  const addTab = U.el('button', { class:'btn-glass set-mini', text:'+ Add custom tab' });
+  addTab.addEventListener('click', () => {
+    Config.update(c => {
+      const id = 'tab_' + U.uid();
+      const statsIdx = c.tabs.findIndex(t => t.kind==='stats');
+      const tab = { id, kind:'custom', label:'New tab' };
+      if (statsIdx >= 0) c.tabs.splice(statsIdx, 0, tab); else c.tabs.push(tab);
+    });
+    rerenderSettings();
+  });
+  setRow(s, null, addTab);
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-action]');
+  if (!t) return;
+  if (t.dataset.action === 'open-settings') openSettings();
+  if (t.dataset.action === 'close-settings') closeSettings();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSettings(); });
+
+/* ================= Clock ================= */
+const Clock = (function(){
+  let activeDateCache;
+  function checkRollover(){
+    const nowActive = U.activeDate();
+    if (activeDateCache && nowActive !== activeDateCache){
+      Data.rollover();
+      Data.streakCheck();
+      activeDateCache = nowActive;
+      U.emit('date-rolled'); U.emit('goals-changed', {});
+      Render.all();
+    } else activeDateCache = nowActive;
+  }
+  return {
+    start(){
+      activeDateCache = U.activeDate();
+      setInterval(() => U.emit('tick-5s'), 5000);
+      setInterval(() => { U.emit('tick-60s'); checkRollover(); }, 60000);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) checkRollover(); });
+      window.addEventListener('focus', checkRollover);
+    },
+  };
+})();
+
+/* ================= boot ================= */
+function boot(){
+  Config.load();
+  Config.applyTheme();
+  Data.rollover();
+  Data.streakCheck();
+  Data.seedMerge();
+  Render.all();
+  Clock.start();
+}
+boot();
+})();
+</script>
+</body>
+</html>

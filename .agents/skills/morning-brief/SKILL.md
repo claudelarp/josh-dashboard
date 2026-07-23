@@ -19,7 +19,7 @@ One page, five fixed sections, before the day starts. This is the product — ev
 
 ## Writes
 
-`ops/briefs/brief-YYYY-MM-DD.md` — nothing else. Then move any brief older than 14 days into `ops/briefs/archive/`, and run `python3 scripts/build-dashboard.py` so `dashboard.html` reflects the morning's task state.
+`ops/briefs/brief-YYYY-MM-DD.md` — nothing else. Then move any brief older than 14 days into `ops/briefs/archive/`, and run `python3 scripts/build-dashboard.py` to push today's open tasks into the dashboard's seed block (it only rewrites the `<!--SEED-->` block, never the app; the browser merges them on next load — see CLAUDE.md "Seed bridge").
 
 Also read `projects/*/tasks.md` — those are the live per-domain task lists; the brief's Open loops section covers them plus `ops/tasks.md`.
 
