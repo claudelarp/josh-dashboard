@@ -1,0 +1,18 @@
+{
+  "synced": "2026-07-23T00:45:00-04:00",
+  "note": "SKU fields are unset in Shopify for all variants; keying on displayName until Josh assigns SKUs (see morning handoff). Variant titles 1/2/3 are presumed sizes — confirm.",
+  "items": [
+    { "sku": null, "displayName": "Heather Gray Reconnected Hoodie - 1", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Heather Gray Reconnected Hoodie - 2", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Heather Gray Reconnected Hoodie - 3", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Faded Black Reconnected Hoodie - 1", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Faded Black Reconnected Hoodie - 2", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Faded Black Reconnected Hoodie - 3", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Heather Grey Reconnected Sweatshorts - 1", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Heather Grey Reconnected Sweatshorts - 2", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Heather Grey Reconnected Sweatshorts - 3", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Faded Black Reconnected Sweatshorts - 1", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Faded Black Reconnected Sweatshorts - 2", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" },
+    { "sku": null, "displayName": "Faded Black Reconnected Sweatshorts - 3", "on_hand": 0, "committed": 0, "available": 0, "location": "Shop location" }
+  ]
+}
