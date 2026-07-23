@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "echo 'Frontend + API ready for Vercel'",
     "dev": "vercel dev"
   },
   "dependencies": {

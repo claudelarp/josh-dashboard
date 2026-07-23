@@ -1,4 +1,4 @@
-import { supabase, authenticateRequest, apiResponse, corsHeaders } from './auth.js';
+import { supabase, authenticateRequest, apiResponse, corsHeaders } from './_auth.js';
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {

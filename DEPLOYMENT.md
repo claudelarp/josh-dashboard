@@ -137,25 +137,35 @@ alter table public.history enable row level security;
 
 ## Step 2: Deploy to Vercel
 
+This project is a **static file + serverless functions** deployment — there's no build step. `dashboard.html` is served directly and everything under `api/functions/` becomes a serverless endpoint automatically. `vercel.json` sets `"framework": null` so Vercel doesn't try to guess a framework or look for a build output directory.
+
 1. **Sign up for Vercel** at https://vercel.com (connect your GitHub account `claudelarp`)
 
 2. **Code is ready at GitHub**: https://github.com/claudelarp/josh-dashboard
 
-3. **Import into Vercel**:
+3. **If you previously tried importing this project and hit the "No Output Directory named public" error**, delete that project first (Project → Settings → scroll to bottom → Delete Project). That error came from a leftover `build` script in `package.json`, now removed — but Vercel caches settings from the first import, so a stale project needs to be deleted and re-imported fresh, not just redeployed.
+
+4. **Import into Vercel**:
    - Go to https://vercel.com/new
    - Click "Import Git Repository"
-   - Select `josh-dashboard` from the list (it should appear automatically)
+   - Select `josh-dashboard` from the list
    - Click "Import"
+   - **Leave Build & Output Settings on "Auto" / default** — do not manually type anything into "Output Directory." It should show empty/auto since `framework: null` is set.
 
-4. **Add environment variables** in Vercel:
-   - You'll see an "Environment Variables" section
-   - Add these two:
+5. **Deploy without env vars first** to confirm the deploy itself succeeds:
+   - Click **Deploy** (skip the Environment Variables section for now)
+   - Wait ~30–60 seconds
+   - It should say **"Ready"** with a green checkmark. If it still fails with the public-directory error, see Troubleshooting below.
+
+6. **Add environment variables** once the base deploy succeeds:
+   - Go to your project → **Settings** → **Environment Variables**
+   - Add:
      - **Name:** `SUPABASE_URL` → **Value:** (paste the Project URL from Supabase)
      - **Name:** `SUPABASE_ANON_KEY` → **Value:** (paste the anon key from Supabase)
-   - Click **Deploy**
+   - Go to **Deployments** → click the "..." on the latest deployment → **Redeploy**
 
-5. **Wait for deployment** (~2 min)
-6. **You'll get a URL** that looks like `https://josh-dashboard.vercel.app`
+7. **You'll get a URL** that looks like `https://josh-dashboard.vercel.app`
+   - Visiting it directly now shows the dashboard (routed via `vercel.json` rewrites)
    - **Save this URL** — you'll use it in the next step
 
 ---
@@ -190,6 +200,12 @@ alter table public.history enable row level security;
 ---
 
 ## Troubleshooting
+
+**"No Output Directory named 'public' found" error:**
+This means Vercel thinks it needs to run a build and find output somewhere. Root cause was a stray `build` script in `package.json` (fixed — this repo now has none). If you still see this after pulling the latest code:
+1. Check **Project Settings → Build & Development Settings** in Vercel — if "Output Directory" has anything manually typed in (like `public`), clear it back to the default/auto placeholder.
+2. Check "Build Command" the same way — it should be empty/auto, not a custom command.
+3. If unsure, delete the project entirely and re-import — manual dashboard overrides don't carry over to a fresh import, so this guarantees a clean slate.
 
 **"Connection failed" message:**
 - Check your Supabase API credentials are correct in Vercel

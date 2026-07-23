@@ -1,4 +1,4 @@
-import { supabase, authenticateRequest, apiResponse } from './auth.js';
+import { supabase, authenticateRequest, apiResponse } from './_auth.js';
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return apiResponse({}, 200);
