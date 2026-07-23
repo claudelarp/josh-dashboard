@@ -135,7 +135,13 @@ export default async function handler(req, res) {
   </div>
 
   <script>
-    const apiUrl = '${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}';
+    // Relative path on purpose: this page and the API always share an
+    // origin (whichever domain the visitor actually used to load /setup —
+    // stable alias, per-deployment hash URL, or a future custom domain).
+    // Building an absolute URL from process.env.VERCEL_URL previously
+    // pointed at a *different* hostname (the per-deployment hash, not the
+    // one the browser was on), which fails as a cross-origin "Failed to
+    // fetch" the moment that specific deployment hash isn't the current one.
     let generatedKey = '';
 
     async function generateKey() {
@@ -148,7 +154,7 @@ export default async function handler(req, res) {
       status.style.display = 'block';
 
       try {
-        const res = await fetch(apiUrl + '/api/functions/register', {
+        const res = await fetch('/api/functions/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: 'user@dashboard.local' })
