@@ -82,13 +82,16 @@ create index idx_tasks_user_date on tasks(user_id, date);
 create index idx_tasks_user_updated on tasks(user_id, updated_at);
 create index idx_backlogs_user on backlogs(user_id);
 create index idx_history_user_date on history(user_id, date);
+```
 
--- Enable RLS (Row Level Security)
-alter table public.users enable row level security;
-alter table public.tasks enable row level security;
-alter table public.backlogs enable row level security;
-alter table public.settings enable row level security;
-alter table public.history enable row level security;
+**Do not enable Row Level Security on these tables.** Access control here happens in the API layer (`api/functions/_auth.js` checks the caller's API key before touching any table), not per-row Postgres policies — all requests use the same shared `anon` key from the serverless functions, never a per-user Supabase Auth session. RLS with no policies defined blocks 100% of access (that's Postgres's default-deny behavior), which would make every API call fail. If you already ran an earlier version of this schema that included `enable row level security` statements, undo it:
+
+```sql
+alter table public.users disable row level security;
+alter table public.tasks disable row level security;
+alter table public.backlogs disable row level security;
+alter table public.settings disable row level security;
+alter table public.history disable row level security;
 ```
 
 5. **Click "Run"** and verify it succeeds (should see "Successfully executed")
@@ -219,6 +222,12 @@ This means Vercel thinks it needs to run a build and find output somewhere. Root
 
 **"Protected deployment" / 401 error, or the page redirects to a Vercel login screen:**
 - This is **Deployment Protection**, not a code bug — see Step 2.5 above. Team projects can have an SSO wall on by default that blocks browser visits and all API calls alike. Disable "Vercel Authentication" for Production in Settings → Deployment Protection.
+
+**"A server error has occurred / FUNCTION_INVOCATION_FAILED" (blank, no JSON body) on any `/api/functions/*` call:**
+This is Vercel's generic crash page — it means the function crashed before it could return a normal response, usually at import/module-eval time, before our own error handling ever runs. Two known causes, both fixed in the code as of the `_auth.js` rewrite (which now fails with a clear JSON error instead of crashing), so if you're on the latest code and still see the raw crash page:
+1. **Missing/misnamed env vars.** In Vercel → Settings → Environment Variables, confirm both `SUPABASE_URL` and `SUPABASE_ANON_KEY` exist, are spelled exactly like that (case-sensitive), and have the **Production** checkbox ticked (not just Preview/Development). Adding a var doesn't retroactively apply to old deployments — redeploy after adding.
+2. **RLS enabled with no policies** (see Step 1's note above) — this blocks every table operation. Run the `disable row level security` statements if you ran an earlier version of the schema.
+- Once `_auth.js`'s guard is in place, the same broken config shows up as a clean `{"error": "Server misconfigured: SUPABASE_URL/SUPABASE_ANON_KEY are not set..."}` JSON response instead of the opaque crash page — much faster to diagnose from here on.
 
 **"Connection failed" message:**
 - Check your Supabase API credentials are correct in Vercel

@@ -14,6 +14,9 @@ export default async function handler(req, res) {
 
   // POST /api/functions/register — generate API key
   if (req.method === 'POST') {
+    if (!supabase) {
+      return apiResponse({ error: 'Server misconfigured: SUPABASE_URL/SUPABASE_ANON_KEY are not set on this deployment' }, 500);
+    }
     const { email } = await req.json();
     if (!email) return apiResponse({ error: 'email required' }, 400);
 
