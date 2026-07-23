@@ -1,0 +1,7 @@
+{
+  "userIgnoreFilters": [
+    "_review/",
+    "graphify-out/",
+    "scripts/"
+  ]
+}
