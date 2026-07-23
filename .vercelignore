@@ -1,0 +1,14 @@
+# SECURITY: this repo is Josh's personal knowledge vault (raw/, wiki/, ops/
+# contain — or will contain — personal finance and health material). Only the
+# dashboard app itself should ever be publicly deployed. Allowlist, not a
+# denylist, on purpose: a denylist silently stops protecting the moment a new
+# top-level folder is added; this fails closed instead.
+*
+
+!dashboard.html
+!sync-client.js
+!package.json
+!package-lock.json
+!vercel.json
+!api
+!api/**

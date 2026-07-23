@@ -3,11 +3,5 @@
   "rewrites": [
     { "source": "/", "destination": "/dashboard.html" },
     { "source": "/setup", "destination": "/api/functions/setup" }
-  ],
-  "functions": {
-    "api/functions/*.js": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
+  ]
 }

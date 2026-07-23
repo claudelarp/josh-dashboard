@@ -2000,7 +2000,7 @@ const Sync = {
     }
     const apiUrl = localStorage.getItem('dash_api_url') || 'https://josh-dashboard-six.vercel.app';
     try {
-      syncClient = new (await import('/api/sync-client.js')).initSync(apiUrl, apiKey);
+      syncClient = new (await import('/sync-client.js')).initSync(apiUrl, apiKey);
       await Sync.pull();
       setInterval(() => Sync.pull(), 30000); // pull every 30s
     } catch (err) {

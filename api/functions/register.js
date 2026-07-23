@@ -1,5 +1,13 @@
 import { supabase, apiResponse } from './_auth.js';
-import crypto from 'crypto';
+
+export const config = { runtime: 'edge' };
+
+function generateApiKey() {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  const hex = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+  return 'sk_' + hex;
+}
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return apiResponse({}, 200);
@@ -11,7 +19,7 @@ export default async function handler(req, res) {
 
     try {
       // Generate a secure API key
-      const apiKey = 'sk_' + crypto.randomBytes(32).toString('hex');
+      const apiKey = generateApiKey();
 
       // Insert user
       const { data, error } = await supabase
