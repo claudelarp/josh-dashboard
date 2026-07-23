@@ -9,11 +9,16 @@ export default async function handler(req) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_ANON_KEY;
 
+  // Project URLs are meant to be public (Supabase embeds them in client-side
+  // apps by design) — safe to show in full here. The anon key stays masked;
+  // only its shape (prefix/suffix) is shown, never the middle.
   return new Response(JSON.stringify({
     hasSupabaseUrl: !!url,
-    supabaseUrlLength: url ? url.length : 0,
+    supabaseUrlRaw: url || null,
+    supabaseUrlJsonEncoded: url ? JSON.stringify(url) : null,
     hasSupabaseKey: !!key,
     supabaseKeyLength: key ? key.length : 0,
+    supabaseKeyPreview: key ? (key.slice(0, 12) + '...' + key.slice(-6)) : null,
     vercelEnv: process.env.VERCEL_ENV || null,
     vercelUrl: process.env.VERCEL_URL || null,
     vercelGitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA || null,
