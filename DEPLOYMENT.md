@@ -164,9 +164,19 @@ This project is a **static file + serverless functions** deployment — there's 
      - **Name:** `SUPABASE_ANON_KEY` → **Value:** (paste the anon key from Supabase)
    - Go to **Deployments** → click the "..." on the latest deployment → **Redeploy**
 
-7. **You'll get a URL** that looks like `https://josh-dashboard.vercel.app`
-   - Visiting it directly now shows the dashboard (routed via `vercel.json` rewrites)
-   - **Save this URL** — you'll use it in the next step
+7. **You'll get a URL** — this project's live URL is `https://josh-dashboard-six.vercel.app`
+   - **Note:** the URL shown right after import (something like `josh-dashboard-<hash>-belated.vercel.app`) is a per-deployment URL that changes every time you redeploy. Use the **stable** one instead — find it under the project's **Domains** tab (no random hash in it). `dashboard.html` already has `https://josh-dashboard-six.vercel.app` hardcoded as the sync default, so unless yours differs, no code changes are needed.
+
+---
+
+## Step 2.5: Turn off Deployment Protection (required for sync to work)
+
+Vercel Team projects (this one lives under the `belated` team) often ship with **Deployment Protection** on by default — an SSO login wall in front of every URL, including API routes. If it's on, every sync request from the dashboard silently fails with `401 Protected deployment`, and visiting the site in a browser redirects to a Vercel login page instead of showing the dashboard.
+
+1. Go to the project in Vercel → **Settings** → **Deployment Protection**
+2. Under **Vercel Authentication**, set it to **"Only Preview Deployments"** (or **"Disabled"**) so Production is public
+3. Save — takes effect immediately, no redeploy needed
+4. Verify: visiting `https://josh-dashboard-six.vercel.app/` in an incognito/private window (not logged into Vercel) should show the dashboard directly, not a login redirect
 
 ---
 
@@ -174,7 +184,7 @@ This project is a **static file + serverless functions** deployment — there's 
 
 1. **Open** `/Users/joshuanieman/Desktop/Josh Brain/dashboard.html` in your browser
 2. **A sync prompt will appear** asking for your API key
-3. **Click "Get one here"** or go to: `https://josh-dashboard.vercel.app/setup`
+3. **Click "Get one here"** or go to: `https://josh-dashboard-six.vercel.app/setup`
 4. **Click "Generate API Key"** on that page
 5. **Copy the key** (it starts with `sk_`)
 6. **Paste it into the dashboard sync prompt**
@@ -207,9 +217,13 @@ This means Vercel thinks it needs to run a build and find output somewhere. Root
 2. Check "Build Command" the same way — it should be empty/auto, not a custom command.
 3. If unsure, delete the project entirely and re-import — manual dashboard overrides don't carry over to a fresh import, so this guarantees a clean slate.
 
+**"Protected deployment" / 401 error, or the page redirects to a Vercel login screen:**
+- This is **Deployment Protection**, not a code bug — see Step 2.5 above. Team projects can have an SSO wall on by default that blocks browser visits and all API calls alike. Disable "Vercel Authentication" for Production in Settings → Deployment Protection.
+
 **"Connection failed" message:**
 - Check your Supabase API credentials are correct in Vercel
-- Make sure the Vercel deployment is live (check: https://josh-dashboard.vercel.app/setup)
+- Make sure the Vercel deployment is live (check: https://josh-dashboard-six.vercel.app/setup)
+- Confirm Deployment Protection is off (see above) — a protection wall looks like a connection failure from the dashboard's point of view
 
 **API key not working:**
 - Copy it exactly (no spaces at the start/end)

@@ -1998,7 +1998,7 @@ const Sync = {
       document.getElementById('syncModal').classList.add('is-open');
       return;
     }
-    const apiUrl = localStorage.getItem('dash_api_url') || 'https://josh-dashboard.vercel.app';
+    const apiUrl = localStorage.getItem('dash_api_url') || 'https://josh-dashboard-six.vercel.app';
     try {
       syncClient = new (await import('/api/sync-client.js')).initSync(apiUrl, apiKey);
       await Sync.pull();
@@ -2065,14 +2065,14 @@ document.getElementById('syncLoginBtn').addEventListener('click', async () => {
     return;
   }
   localStorage.setItem('dash_api_key', apiKey);
-  localStorage.setItem('dash_api_url', 'https://josh-dashboard.vercel.app');
+  localStorage.setItem('dash_api_url', 'https://josh-dashboard-six.vercel.app');
   document.getElementById('syncModal').classList.remove('is-open');
   await Sync.init();
   U.banner('Cloud sync connected!', 3000);
 });
 
 document.getElementById('showHelpSync').addEventListener('click', () => {
-  alert('To get an API key:\n1. Visit: https://josh-dashboard.vercel.app/setup\n2. Click "Generate Key"\n3. Paste the key here\n\nYour tasks will now sync across all devices!');
+  alert('To get an API key:\n1. Visit: https://josh-dashboard-six.vercel.app/setup\n2. Click "Generate Key"\n3. Paste the key here\n\nYour tasks will now sync across all devices!');
 });
 
 document.addEventListener('click', e => {
