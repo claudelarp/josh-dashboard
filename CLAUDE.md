@@ -172,6 +172,19 @@ This is the step every session ends with — the one Josh explicitly asked for. 
 
 Structural changes to the schema itself (new domains, restructuring — the kind of thing this file's own history has already been through once) are the one exception: those get reviewed directly with Josh in the moment (planning it out, confirming the design) rather than staged through `_review/` — staging a change Josh is already co-designing live would just be re-approving it twice. `_review/` is for ongoing content operations a session runs on its own judgment.
 
+## Scope rules (Josh's standing directives, 2026-07-23)
+
+- **Never read, scan, or cite files outside this vault unless Josh explicitly points at them in that conversation.** Material enters this system only when he chooses to bring it in. No proactive environment scans.
+- **Start simple; add on pull, not push.** The core product is daily task/time organization. Automations, data pipelines, and integrations get built when Josh asks or a real repeated need shows up — not because they'd be impressive.
+
+## Projects (per-domain chatbots) & dashboard
+
+`projects/<domain>/` — one folder per life area: `business`, `fitness-health`, `marketing` (medical aesthetics practices), `school`, `self-development`. Each has a `CLAUDE.md` persona (loads automatically when working in that folder — opening a session there *is* that domain's chatbot), a `tasks.md`, and a `notes.md`. The same CLAUDE.md text doubles as custom instructions for a claude.ai Project if Josh ever wants these as app-side chats.
+
+- **Tasks:** `- [ ] task (added YYYY-MM-DD) !due:YYYY-MM-DD` (due tag optional). Any session that surfaces a task writes it to the right domain's `tasks.md`; done means checked off, not deleted.
+- **Dashboard:** `dashboard.html` at the vault root — today's focus (overdue/due-today) + five domain columns. Regenerate with `python3 scripts/build-dashboard.py` (the morning brief also regenerates it). "Refresh the dashboard" means run that script.
+- Projects map to wiki domains for durable knowledge: business→`business`, fitness-health→`fitness`/`health`, marketing→`media`, school→`schoolwork`, self-development→`habits`.
+
 ## Operations layer (`ops/`)
 
 The vault holds two things under one root: **knowledge** (`raw/` + `wiki/`, review-gated as above) and **operational state** (`ops/` — machine-refreshed data, schedules, briefs). Plan of record: [[mission-control-spec]]. Different contract:

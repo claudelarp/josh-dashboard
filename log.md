@@ -24,3 +24,10 @@ Format: `## [YYYY-MM-DD] <ingest|research|query|lint> | <domain> | <title>`
 - P2: `morning-brief` skill; headless Claude CLI installed + smoke-tested; first brief generated (`ops/briefs/brief-2026-07-23.md`); 06:30 plist staged at `scripts/launchd/` — auto-install blocked by permission classifier, one-line install in the handoff.
 - Scaffolds: `wiki-ops`, `intel-intake`, `restock-call`, `scripts/check-collisions.sh` (passing).
 - Calendar enumerated (primary + US holidays; empty next 14 days). Handoff: `morning-handoff-2026-07-23.md` (Josh: install job, token, drop facts, context sitting).
+
+## [2026-07-23] build | meta | Course-correction: simple mission control (projects + dashboard)
+
+- Josh's directive (now in CLAUDE.md Scope rules): no reading files outside the vault unless he points at them; start simple, core product is daily task/time organization.
+- New: `projects/<domain>/` chatbot folders ×5 (business, fitness-health, marketing, school, self-development) — each a CLAUDE.md persona + tasks.md + notes.md; nested-CLAUDE.md loading makes each folder its own chat context.
+- New: `dashboard.html` + `scripts/build-dashboard.py` (validated palette, light/dark, today's-focus strip + 5 columns; due-date pills tested). Morning brief now also regenerates it and reads project task lists.
+- Parked, dormant: Shopify token task, 06:30 auto-brief install, phases P3–P5, all ops/context sitting questions. `ops/tasks.md` reduced to system-maintenance only.

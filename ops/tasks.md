@@ -1,5 +1,5 @@
-# Tasks
+# Tasks — system maintenance only
 
-<!-- HUMAN-OWNED open-loops list. The morning brief surfaces unchecked items older than 5 days. Format: - [ ] task (added YYYY-MM-DD) -->
+<!-- HUMAN-OWNED. Live per-domain task lists moved to projects/<domain>/tasks.md (2026-07-23). This file holds only vault/system upkeep items. Format: - [ ] task (added YYYY-MM-DD) -->
 
-- [ ] Morning handoff tasks — see morning-handoff-2026-07-23.md at vault root (added 2026-07-23)
+*(none)*
