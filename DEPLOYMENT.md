@@ -108,32 +108,38 @@ alter table public.history disable row level security;
 
 **Already done?** Skip this section. Your code is at https://github.com/claudelarp/josh-dashboard
 
-**Not pushed yet?** Here's how:
+**Not pushed yet, or setting this up on a new machine?** Use the GitHub CLI (`gh`) — it stores your credentials in the macOS keychain and never requires typing or pasting a raw token into a command, a URL, or anywhere that could end up in a screenshot or terminal scrollback.
 
-1. **Set up Git credentials** (one-time):
+1. **Install the GitHub CLI** (one-time):
    ```bash
-   git config --global credential.helper osxkeychain
+   brew install gh
    ```
-   (On Windows, use: `git config --global credential.helper wincred`)
+   (Windows: `winget install --id GitHub.cli`, or see https://cli.github.com)
 
-2. **Create a GitHub Personal Access Token**:
-   - Go to: https://github.com/settings/tokens/new
-   - Name: `josh-dashboard`
-   - Scopes: check only `repo` (all options under it)
-   - Click **Generate token** and copy it
+2. **Log in** (opens a browser to authorize — no token ever touches your terminal):
+   ```bash
+   gh auth login --hostname github.com --git-protocol https --web
+   ```
+   It prints a one-time code and a URL (`github.com/login/device`) — open the URL, enter the code, click Authorize. If the CLI process itself hangs or times out mid-poll (a known flaky spot on some networks — the browser step can succeed while the CLI's polling connection stalls), just re-run the same command for a fresh code; it doesn't affect the code that's already been used.
 
-3. **Push your code**:
+3. **Wire git to use it** (one-time):
+   ```bash
+   gh auth setup-git
+   ```
+   From now on, `git push`/`pull` against GitHub authenticate silently through `gh` — no prompts, no pasted credentials.
+
+4. **Push your code**:
    ```bash
    cd "/Users/joshuanieman/Desktop/Josh Brain"
    git push -u origin main
-   # When prompted:
-   #   Username: your-github-username
-   #   Password: (paste your Personal Access Token)
    ```
-   Git saves your credentials for next time.
+
+**Verify it's actually working:** `git push --dry-run origin main` should complete with no username/password prompt at all.
+
+**If you ever do end up with a token in a git remote URL** (e.g. `https://user:TOKEN@github.com/...`) — that's stored in plaintext in `.git/config` on disk, not just at risk in a terminal screenshot. Clean it up with `git remote set-url origin https://github.com/YOUR_USERNAME/josh-dashboard.git`, then revoke that token at https://github.com/settings/tokens.
 
 **Error: "Repository not found"?**
-- Make sure your token is for the correct GitHub account
+- Make sure you're logged into `gh` as the correct GitHub account: `gh auth status`
 - Verify the repo exists at: https://github.com/YOUR_USERNAME/josh-dashboard
 
 ---
